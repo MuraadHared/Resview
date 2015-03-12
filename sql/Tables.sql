@@ -37,7 +37,7 @@ CREATE TABLE Rater
 	email varchar (20),
 	name varchar (15), 
 	join_date date,
-	type, varchar(15),
+	type varchar(15),
 	reputation numeric(1,1) CHECK(reputation >=1 AND reputation <=5) DEFAULT 1
 ); 
 
@@ -53,6 +53,6 @@ CREATE TABLE Rating
 	staff numeric(1, 1) CHECK (staff >= 1 AND staff <= 5),
 	PRIMARY KEY (RestaurantID, UserID),
 	FOREIGN KEY (UserID) REFERENCES Rater,
-	FOREIGN KEY (RestaurantID) REFERENCES Restaurant)
+	FOREIGN KEY (RestaurantID) REFERENCES Restaurant
 );
 		
