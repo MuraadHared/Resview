@@ -1,4 +1,4 @@
-DROP TABLE Restaurant, Location, MenuItem, Rater, Rating;
+DROP TABLE Restaurant, Location, Rater, MenuItem, Rating, RatingItem;
 
 CREATE TABLE Restaurant
 (
@@ -11,24 +11,26 @@ CREATE TABLE Restaurant
 CREATE TABLE Location
 (	
 	LocationID serial PRIMARY KEY,
+	RestaurantID int,
 	open_date date,
 	manager_name varchar(35),
 	phone_number TEXT,
 	street_address varchar(80),
 	hour_open time,
 	hour_close time,
-	RestaurantID int REFERENCES Restaurant(RestaurantID) ON DELETE CASCADE
+	FOREIGN KEY (RestaurantID) REFERENCES Restaurant ON DELETE CASCADE		
 );
 
 CREATE TABLE MenuItem
 (
 	ItemID serial PRIMARY KEY,
+	RestaurantID int,
 	name varchar(35),
 	type varchar(15),
 	category varchar(15),
 	description varchar,
 	price numeric(4, 2),
-	RestaurantID int REFERENCES Restaurant(RestaurantID) ON DELETE CASCADE
+	FOREIGN KEY (RestaurantID) REFERENCES Restaurant ON DELETE CASCADE
 );
 
 CREATE TABLE Rater 
@@ -51,8 +53,22 @@ CREATE TABLE Rating
 	food numeric(2, 1) CHECK (food >= 1 AND food <= 5),
 	mood numeric(2, 1) CHECK (mood >= 1 AND mood <= 5),
 	staff numeric(2, 1) CHECK (staff >= 1 AND staff <= 5),
-	PRIMARY KEY (RestaurantID, UserID),
-	FOREIGN KEY (UserID) REFERENCES Rater,
-	FOREIGN KEY (RestaurantID) REFERENCES Restaurant
+	PRIMARY KEY (rating_time, UserID),
+	FOREIGN KEY (UserID) REFERENCES Rater ON DELETE CASCADE,	
+	FOREIGN KEY (RestaurantID) REFERENCES Restaurant ON DELETE CASCADE
 );
+
+CREATE TABLE RatingItem
+(	
+	UserID int,
+	ItemID int,
+	rating_time timestamp,	
+	rating numeric(2, 1) CHECK(rating >= 1 AND rating <= 5),
+	rating_comment text,
+	PRIMARY KEY (UserID, rating_time, ItemID),
+	FOREIGN KEY (UserID) REFERENCES Rater ON DELETE CASCADE,	
+	FOREIGN KEY (ItemID) REFERENCES MenuItem	
+);
+
+
 		
