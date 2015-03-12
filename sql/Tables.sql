@@ -1,4 +1,4 @@
-DROP TABLE Restaurant, Location, MenuItem;
+DROP TABLE Restaurant, Location, MenuItem, Rater, Rating;
 
 CREATE TABLE Restaurant
 (
@@ -34,25 +34,25 @@ CREATE TABLE MenuItem
 CREATE TABLE Rater 
 (	
 	UserID serial PRIMARY KEY,
-	email CHAR (20),
-	name CHAR (15), 
-	join_date DATE,
-	type integer CHECK(integer >=1 AND integer <=5) DEFAULT 1,
-	reputation CHAR (15)
+	email varchar (20),
+	name varchar (15), 
+	join_date date,
+	type, varchar(15),
+	reputation numeric(1,1) CHECK(reputation >=1 AND reputation <=5) DEFAULT 1
 ); 
 
 CREATE TABLE Rating
 (
-	UserID INT,
-	RestaurantID INT,
-	Ratining_time TIMESTAMP,
-	Comments TEXT,
-	Price DECIMAL (1,1) CHECK (Price >= 0 AND Price <= 5),
-	Food DECIMAL (1,1) CHECK (Food >= 0 AND Food <= 5),
-	Mood DECIMAL (1,1) CHECK (Mood >= 0 AND Mood <= 5),
-	Staff DECIMAL (1,1) CHECK (Staff >= 0 AND Staff <= 5),
+	UserID int,
+	RestaurantID int,
+	rating_time timestamp,
+	comments text,
+	price numeric(1, 1) CHECK (price >= 1 AND price <= 5),
+	food numeric(1, 1) CHECK (food >= 1 AND food <= 5),
+	mood numeric(1, 1) CHECK (mood >= 1 AND mood <= 5),
+	staff numeric(1, 1) CHECK (staff >= 1 AND staff <= 5),
 	PRIMARY KEY (RestaurantID, UserID),
-	FOREIGN KEY (UserID) REFERENCES Rater,            -- Question 1a
+	FOREIGN KEY (UserID) REFERENCES Rater,
 	FOREIGN KEY (RestaurantID) REFERENCES Restaurant)
 );
 		
