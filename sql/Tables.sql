@@ -34,11 +34,11 @@ CREATE TABLE MenuItem
 CREATE TABLE Rater 
 (	
 	UserID serial PRIMARY KEY,
-	email varchar (20),
+	email varchar (100),
 	name varchar (15), 
 	join_date date,
 	type varchar(15),
-	reputation numeric(1,1) CHECK(reputation >=1 AND reputation <=5) DEFAULT 1
+	reputation numeric(2,1) CHECK(reputation >=1 AND reputation <=5) DEFAULT 1
 ); 
 
 CREATE TABLE Rating
@@ -47,10 +47,10 @@ CREATE TABLE Rating
 	RestaurantID int,
 	rating_time timestamp,
 	comments text,
-	price numeric(1, 1) CHECK (price >= 1 AND price <= 5),
-	food numeric(1, 1) CHECK (food >= 1 AND food <= 5),
-	mood numeric(1, 1) CHECK (mood >= 1 AND mood <= 5),
-	staff numeric(1, 1) CHECK (staff >= 1 AND staff <= 5),
+	price numeric(2, 1) CHECK (price >= 1 AND price <= 5),
+	food numeric(2, 1) CHECK (food >= 1 AND food <= 5),
+	mood numeric(2, 1) CHECK (mood >= 1 AND mood <= 5),
+	staff numeric(2, 1) CHECK (staff >= 1 AND staff <= 5),
 	PRIMARY KEY (RestaurantID, UserID),
 	FOREIGN KEY (UserID) REFERENCES Rater,
 	FOREIGN KEY (RestaurantID) REFERENCES Restaurant
