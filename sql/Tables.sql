@@ -1,4 +1,4 @@
-DROP TABLE Restaurant, Location, MenuItem, Rater, Rating;
+DROP TABLE Restaurant, Location, MenuItem, Rater, Rating, RatingItem;
 
 CREATE TABLE Restaurant
 (
@@ -51,8 +51,21 @@ CREATE TABLE Rating
 	food numeric(1, 1) CHECK (food >= 1 AND food <= 5),
 	mood numeric(1, 1) CHECK (mood >= 1 AND mood <= 5),
 	staff numeric(1, 1) CHECK (staff >= 1 AND staff <= 5),
-	PRIMARY KEY (RestaurantID, UserID),
+	PRIMARY KEY (rating_time, UserID),
 	FOREIGN KEY (UserID) REFERENCES Rater,
 	FOREIGN KEY (RestaurantID) REFERENCES Restaurant
 );
+
+CREATE TABLE RatingItem
+(
+	UserID int,
+	rating_time timestamp,
+	ItemID int,
+	rating int CHECK(rating >=1 AND rating <= 5),
+	rating_comment text,
+	PRIMARY KEY (UserID, rating_time, ItemID),
+	FOREIGN KEY (rating_time, UserID) REFERENCES Rating,
+	FOREIGN KEY (ItemID) REFERENCES MenuItem
+);
+	
 		
