@@ -92,3 +92,4 @@ VALUES
 INSERT INTO Rater
 VALUES
 (DEFAULT, 'sweetooth657@uottawa.ca', 'SweetTooth657', '2013-09-10', 'Blog', 4.1);
+
