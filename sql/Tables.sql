@@ -40,3 +40,19 @@ CREATE TABLE Rater
 	type integer CHECK(integer >=1 AND integer <=5) DEFAULT 1,
 	reputation CHAR (15)
 ); 
+
+CREATE TABLE Rating
+(
+	UserID INT,
+	RestaurantID INT,
+	Ratining_time TIMESTAMP,
+	Comments TEXT,
+	Price DECIMAL (1,1) CHECK (Price >= 0 AND Price <= 5),
+	Food DECIMAL (1,1) CHECK (Food >= 0 AND Food <= 5),
+	Mood DECIMAL (1,1) CHECK (Mood >= 0 AND Mood <= 5),
+	Staff DECIMAL (1,1) CHECK (Staff >= 0 AND Staff <= 5),
+	PRIMARY KEY (RestaurantID, UserID),
+	FOREIGN KEY (UserID) REFERENCES Rater,            -- Question 1a
+	FOREIGN KEY (RestaurantID) REFERENCES Restaurant)
+);
+		
