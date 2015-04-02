@@ -51,15 +51,15 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('2','PENDING','2014-06-20 19:45:10',2,'The cheese is soft but you can taste the fat in every bite');
+('2','16','2014-06-20 19:45:10',2,'The cheese is soft but you can taste the fat in every bite');
 
 INSERT INTO RatingItem
 VALUES
-('4','PENDING','2013-04-02 03:05:10',3.6,'Good salad if your on a diet');
+('4','17','2013-04-02 03:05:10',3.6,'Good salad if your on a diet');
 
 INSERT INTO RatingItem
 VALUES
-('6','PENDING','2014-07-11 05:00:10',2,'Way too sweet, needed to water it down');
+('6','18','2014-07-11 05:00:10',2,'Way too sweet, needed to water it down');
 
 -- ************************************HAVELI************************************* --
 
@@ -114,15 +114,15 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('8','PENDING','2014-11-26 18:05:10',3,'Pretty expensive for an appetizer');
+('8','19','2014-11-26 18:05:10',3,'Pretty expensive for an appetizer');
 
 INSERT INTO RatingItem
 VALUES
-('10','PENDING','2015-01-12 01:22:10',3.6,'Nice mixture of raisins nuts and rice');
+('10','20','2015-01-12 01:22:10',3.6,'Nice mixture of raisins nuts and rice');
 
 INSERT INTO RatingItem
 VALUES
-('12','PENDING','2015-04-02 22:03:10',4.2,'Amazing dish');
+('12','21','2015-04-02 22:03:10',4.2,'Amazing dish');
 
 -- **********************************MUCHO BURRITO******************************** --
 
@@ -177,15 +177,15 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('14','PENDING','2014-08-20 15:36:10',2,'way too spicy, the hot peppers were everywhere');
+('14','22','2014-08-20 15:36:10',2,'way too spicy, the hot peppers were everywhere');
 
 INSERT INTO RatingItem
 VALUES
-('1','PENDING','2014-12-25 02:22:10',5,'So much food for a resonable price');
+('1','23','2014-12-25 02:22:10',5,'So much food for a resonable price');
 
 INSERT INTO RatingItem
 VALUES
-('3','PENDING','2014-09-20 14:45:10',5,'Soft and delicious brownie!');
+('3','24','2014-09-20 14:45:10',5,'Soft and delicious brownie!');
 
 -- *********************************SHAWARMA PRINCE****************************** -- 
 
@@ -240,15 +240,15 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('5','PENDING','2014-11-16 05:33:10',3,'Best garlic potatoes but they are a bit expensive');
+('5','25','2014-11-16 05:33:10',3,'Best garlic potatoes but they are a bit expensive');
 
 INSERT INTO RatingItem
 VALUES
-('7','PENDING','2014-12-20 16:00:10',5,'Best chicken shawarma plate in town');
+('7','26','2014-12-20 16:00:10',5,'Best chicken shawarma plate in town');
 
 INSERT INTO RatingItem
 VALUES
-('9','PENDING','2013-01-02 12:10:10',1,'My sandwich was falling apart the moment I grabbed it out of the Bag');
+('9','27','2013-01-02 12:10:10',1,'My sandwich was falling apart the moment I grabbed it out of the Bag');
 
 -- *****************************EAST SIDE MARIO'S*********************************--
 
@@ -303,12 +303,12 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('11','PENDING','2015-02-02 03:21:11',2.5,'Meatballs were dry');
+('11','28','2015-02-02 03:21:11',2.5,'Meatballs were dry');
 
 INSERT INTO RatingItem
 VALUES
-('13','PENDING','2014-10-26 09:45:10',4.3,'Nice balance of different flavors');
+('13','29','2014-10-26 09:45:10',4.3,'Nice balance of different flavors');
 
 INSERT INTO RatingItem
 VALUES
-('15','PENDING','2014-04-20 18:56:10',3.5,'The root beer taste is a bit too strong for the ice cream mix');
+('15','30','2014-04-20 18:56:10',3.5,'The root beer taste is a bit too strong for the ice cream mix');
