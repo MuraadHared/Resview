@@ -2,13 +2,13 @@
 
 --a--
 SELECT *
-FROM RESTAURANT R
-WHERE R.name = "";
+FROM RESTAURANT R, LOCATION L
+WHERE R.name = "" AND R.RestaurantID = L.RestaurantID;
 
 --b--
 SELECT M.name, M.price
-FROM MenuItem M
-WHERE M.RestaurantID = "";
+FROM MenuItem M , RESTAURANT R
+WHERE R.name = "" AND M.RestaurantID = R.RestaurantID;
 ORDER BY M.category;
 
 --c--
@@ -32,3 +32,5 @@ SELECT R.type, M.category, AVG(M.price) AS Average_Price
 FROM RESTAURANT R, MenuItem M
 WHERE M.RestaurantID = R.RestaurantID
 GROUP BY M.category, R.type;
+
+
