@@ -1,0 +1,13 @@
+<div class="container">
+	<h2>Restaurants</h2>
+	<input type="text" ng-model="restaurantName" />
+	<br />
+	<div data-ng-repeat="rest in restaurantList | filter: restaurantName">
+    	<button ng-click="getRatings(rest)"> {{ rest.name }} </button>
+    </div>
+
+
+    <ul>
+    	<li data-ng-repeat="rating in restaurantRatings">{{ rating }}</li>
+    </ul>
+</div>

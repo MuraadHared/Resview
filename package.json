@@ -1,0 +1,11 @@
+{
+  "name"         : "server-for-restaurant",
+  "version"      : "0.0.0",
+  "description"  : "CSI2132",
+  "main"         : "server.js",
+  "author"       : "Sarmad, Muraad, Salman",
+  "dependencies" : {
+    "express"    : "~4.7.2",
+    "pg"         : "*"
+    }
+}
