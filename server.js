@@ -20,6 +20,24 @@ app.get('/restaurant', function(req,res){
     dbOperations.getRestaurants(req,res);    
 });
 
+app.get('/f', function(req,res){	
+    dbOperations.f(req,res);    
+});
+
+app.get('/g', function(req,res){	
+    dbOperations.g(req,res);    
+});
+app.get('/h', function(req,res){	
+    dbOperations.h(req,res);    
+});
+app.get('/i/:type', function(req,res){	
+    dbOperations.i(req,res);    
+});
+app.get('/j', function(req,res){	
+    dbOperations.j(req,res);    
+});
+
+
 app.get('/rating/:restaurantid', function(req,res){	
     dbOperations.getRatings(req,res);    
 });

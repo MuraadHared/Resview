@@ -1,13 +1,203 @@
+
+<head>
+<style>
+body {
+    width: 600px;
+    margin: 40px auto;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    font-size: 14px;
+    color: #444;
+}
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.bordered tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.bordered td, .bordered th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+
+.bordered th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+.bordered th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+
+</style>
+</head>
+
 <div class="container">
 	<h2>Restaurants</h2>
-	<input type="text" ng-model="restaurantName" />
+	<input type="text" id = "type" ng-model="type" /> {{ type }}
 	<br />
 	<div data-ng-repeat="rest in restaurantList | filter: restaurantName">
     	<button ng-click="getRatings(rest)"> {{ rest.name }} </button>
     </div>
 
 
-    <ul>
-    	<li data-ng-repeat="rating in restaurantRatings">{{ rating }}</li>
-    </ul>
+
+
+<table>
+	<tr>
+    <th>User ID</th>
+    <th>Restaurant ID</th>
+    <th>Rating Time</th>
+<th>Comments</th>
+    <th>Price</th>
+    <th>Food</th>
+<th>mood</th>
+    <th>staff</th>
+  </tr>
+  <tr ng-repeat="rating in restaurantRatings"> 
+    <td>{{ rating.userid}}</td>
+    <td>{{ rating.restaurantid }}</td>
+    <td>{{ rating.rating_time }}</td>
+    <td>{{ rating.comments}}</td>
+    <td>{{ rating.price }}</td>
+    <td>{{ rating.food }}</td>
+    <td>{{ rating.mood }}</td>
+    <td>{{ rating.staff }}</td>
+  </tr>
+</table>
+
+
+<br />
+<br />
+<br />
+<br />
+
+<button ng-click="f()"> Rater Inventory </button>
+   
+
+<table>
+  <tr ng-repeat="result in f">
+    <td>{{ result.user_name }}</td>
+    <td>{{ result.restaurant_name }}</td>
+    <td>{{ result.number_of_ratinings }}</td>
+  </tr>
+</table>
+
+<br />
+
+<button ng-click="g()"> Not Rated in January 2015 </button>
+
+
+<table>
+  <tr ng-repeat="result1 in g">
+    <td>{{ result1.name }}</td>
+    <td>{{ result1.type }}</td>
+    <td>{{ result1.phone_number}}</td>
+  </tr>
+</table>
+
+<br />
+
+<button ng-click="h()"> Find the names and opening dates of the restaurants that obtained Staff rating that is lower
+than any rating given by rater </button>
+
+
+<table>
+  <tr ng-repeat="result2 in h">
+    <td>{{ result2.open_date }}</td>
+    <td>{{ result2.name }}</td>
+  </tr>
+</table>
+
+
+
+<br />
+<button ng-click="i(type)">List the details of the Type Y restaurants that obtained the highest Food rating. </button>
+
+
+<table>
+  <tr ng-repeat="result3 in i">
+    <td>{{ result3.restaurant_name }}</td>
+    <td>{{ result3.user_name }}</td>
+    </tr>
+
+</table>
+
+
+
+
+<br />
+<button ng-click="j()"> determine whether Type Y restaurants are “more popular” than other
+restaurants. </button>
+
+
+
+<table>
+  <tr ng-repeat="result4 in j">
+    <td>{{ result4.popular }}</td>
+    </tr>
+</table>
+
 </div>
