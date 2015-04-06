@@ -353,7 +353,7 @@ VALUES
 
 INSERT INTO Rating
 VALUES
-('14','9','2014-10-00 20:53:56','I personally prefer Shawarma Gloucester location, the other two are always packed.',3,4.2,3.9,3);
+('14','9','2014-10-01 20:53:56','I personally prefer Shawarma Gloucester location, the other two are always packed.',3,4.2,3.9,3);
 
 INSERT INTO Rating
 VALUES
@@ -412,7 +412,7 @@ VALUES
 
 INSERT INTO Rating
 VALUES
-('12','11','2015-04-12 07:16:34','Overpriced, but the food was amazing!',0.4,4.2,3.0,3.6);
+('12','11','2015-04-12 07:16:34','Overpriced, but the food was amazing!',1.4,4.2,3.0,3.6);
 
 INSERT INTO Rating
 VALUES
@@ -428,7 +428,7 @@ VALUES
 
 INSERT INTO Rating
 VALUES
-('9','11','2013-01-12 20:09:42','Food was served cold, gloomy setting',3.1,0.5,1.4,2.1);
+('9','11','2013-01-12 20:09:42','Food was served cold, gloomy setting',3.1,1.5,1.4,2.1);
 
 --############################################################################### -- Pho Thu Do -- #############################################################
 INSERT INTO Rating
@@ -449,7 +449,7 @@ VALUES
 
 INSERT INTO Rating
 VALUES
-('9','12','2012-12-13 12:03:08','Very dirty place and horrible customer service',1.1,1.2,1.7,0.8);
+('9','12','2012-12-13 12:03:08','Very dirty place and horrible customer service',1.1,1.2,1.7,1.8);
 
 INSERT INTO Rating
 VALUES
@@ -966,7 +966,7 @@ VALUES
 
 INSERT INTO RatingItem
 VALUES
-('5','43','2014-05-01 19:20:19',0.9,'WORST Kabobs I have ever tasted! Avoid at all costs.');
+('5','43','2014-05-01 19:20:19',1.9,'WORST Kabobs I have ever tasted! Avoid at all costs.');
 
 INSERT INTO RatingItem
 VALUES
