@@ -14,32 +14,61 @@ app.get('/' , function(req,res) {
     res.sendfile('public/html/index.html');    
 });
 
+app.get('/login/:user/:pass', function(req,res){       
+    dbOperations.login(req,res);    
+});
 
 // these are accessed by angularjs to create, read, update and delete (CRUD) data
 app.get('/restaurant', function(req,res){	
     dbOperations.getRestaurants(req,res);    
 });
 
-app.get('/f', function(req,res){	
+app.get('/rating/:restaurantid', function(req,res){ 
+    dbOperations.getRatings(req,res);    
+});
+
+app.get('/raters', function(req,res){ 
+    dbOperations.getRaters(req,res);    
+});
+
+app.get('/A/:id', function(req,res){ 
+    dbOperations.selectRestaurant(req,res);    
+});
+
+app.get('/B/:id', function(req,res){ 
+    dbOperations.selectMenuItem(req,res);    
+});
+
+app.get('/C/:type', function(req,res){ 
+    dbOperations.categoryRestaurant(req,res);    
+});
+
+app.get('/D/:id', function(req,res){ 
+    dbOperations.expensiveMenuItem(req,res);    
+});
+
+app.get('/E/', function(req,res){  
+    dbOperations.averagePrices(req,res);    
+});
+
+app.get('/F', function(req,res){    
     dbOperations.f(req,res);    
 });
 
-app.get('/g', function(req,res){	
+app.get('/G', function(req,res){    
     dbOperations.g(req,res);    
 });
-app.get('/h', function(req,res){	
+
+app.get('/H/:raterName', function(req,res){ 
     dbOperations.h(req,res);    
 });
-app.get('/i/:type', function(req,res){	
+
+app.get('/I/:type', function(req,res){  
     dbOperations.i(req,res);    
 });
-app.get('/j', function(req,res){	
+
+app.get('/J/:morePopularX/:morePopularY', function(req,res){    
     dbOperations.j(req,res);    
-});
-
-
-app.get('/rating/:restaurantid', function(req,res){	
-    dbOperations.getRatings(req,res);    
 });
 
 app.set('port', process.env.PORT || 3001);
