@@ -1,0 +1,211 @@
+
+<head>
+<style>
+.container {
+    width: 600px;
+    margin: 40px auto;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    font-size: 14px;
+    color: #444;
+}
+
+.queryContainer, .queryDropdown {
+    display:none;
+}
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.bordered tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.bordered td, .bordered th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+
+.bordered th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+.bordered th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+
+</style>
+<script>
+$(document).ready(function() {
+
+    $('#selectQueries1').change(function(e){
+        var q = $(this).val();
+        $('.queryDropdown').hide();     
+        if (q === 'H') {
+            $('#raterDropdown').show();            
+        }
+        else if (q === 'I') {
+            $('#restaurantType').show();
+        }
+        else if (q === 'J') {
+            $('#popularityDropdowns').show();            
+        }
+    });
+})
+
+function showContainer() {  
+    $('.queryContainer').hide();
+    var q = $('#selectQueries1').val();
+    $('#containerForQuery'+q).show();
+}
+</script>
+</head>
+<div class="container">
+    <h2 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">What kind of information do you wish to see?</h2>
+        <br>
+        <select id="selectQueries1" data-ng-model="selectedQuery" style='width:500px'>
+            <option value='' disabled selected>Select information that you wish to display</option>
+            <option value='F'>Find the total number of rating for each restaurant, for each rater.</option>
+            <option value='G'>Display the details of the restaurants that have not been rated in January 2015.</option>
+            <option value='H'>Find the names and opening dates of the restaurants that obtained Staff rating that is lower than any rating given by rater</option>
+            <option value='I'>List the details of the Type Y restaurants that obtained the highest Food rating. </option>
+            <option value='J'>Determine whether a certain type is more popular than other restaurants.</option>
+        </select>
+        <button id="query-button" ng-click="redirectToQuery(selectedQuery);" onclick="showContainer();"> Go! </button>
+
+        <select ng-model="restaurant" ng-options="rest.name for rest in restaurantList track by rest.restaurantid |orderBy:'name'" 
+        id="restaurantDropdown" class="queryDropdown">
+        </select>
+
+        <select ng-model="raterName" ng-options="r.name for r in raterList | orderBy:'name'" 
+        id="raterDropdown"  class="queryDropdown"> 
+        </select>
+        <select ng-model="restaurantType" ng-options="t for t in types | orderBy:'t'" id="restaurantTypeX" class="queryDropdown">
+        </select>
+
+        <div class="queryDropdown" id="popularityDropdowns">
+            Determine whether 
+            <select ng-model="restaurantTypeX" ng-options="t for t in types | orderBy:'t'" id="restaurantTypeX">
+            </select>
+            restaurants are more popular than 
+
+            <select ng-model="restaurantTypeY" ng-options="t for t in types | orderBy:'t'" id="restaurantTypeY">
+            </select>
+            restaurants.
+        </div>
+
+        <select data-ng-model="restaurantType" id="categoryDropdown" class="queryDropdown">
+            <option data-ng-repeat="t in types | orderBy:'t'">{{t}}</option>
+        </select>
+    <br>
+    <br>
+
+    
+    <div id="containerForQueryF" class="queryContainer">
+        <table>        
+            <tr ng-repeat="result in frestaurantQuery">
+                <td>{{ result.user_name }}</td>
+                <td>{{ result.restaurant_name }}</td>
+                <td>{{ result.number_of_ratinings }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="containerForQueryG" class="queryContainer">
+        <table>
+          <tr ng-repeat="result1 in grestaurantQuery">
+            <td>{{ result1.name }}</td>
+            <td>{{ result1.type }}</td>
+            <td>{{ result1.phone_number}}</td>
+          </tr>
+        </table>
+    </div>
+
+    <div id="containerForQueryH" class="queryContainer">
+        <table>
+          <tr ng-repeat="result2 in hrestaurantQuery">
+            <td>{{ result2.open_date }}</td>
+            <td>{{ result2.name }}</td>
+          </tr>
+        </table>
+    </div>
+
+
+    <div id="containerForQueryI" class="queryContainer">
+        <table>
+          <tr ng-repeat="result3 in irestaurantQuery">
+            <td>{{ result3.restaurant_name }}</td>
+            <td>{{ result3.user_name }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="containerForQueryJ" class="queryContainer">
+        <table>
+          <tr ng-repeat="result4 in jrestaurantQuery">
+            <td>{{ result4.popular }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

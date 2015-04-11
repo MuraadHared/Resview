@@ -1,0 +1,220 @@
+
+<head>
+<style>
+.container {
+    width: 600px;
+    margin: 40px auto;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    font-size: 14px;
+    color: #444;
+}
+
+.queryContainer, .queryDropdown {
+	display:none;
+}
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+.bordered tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.bordered td, .bordered th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+.bordered th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+.bordered th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+
+	$('#selectQueries1').change(function(e){
+		var q = $(this).val();
+		$('.queryDropdown').hide();		
+		if (q === 'A' || q === 'B' || q === 'D') {
+			$('#restaurantDropdown').show();			
+		}
+		else if (q === 'C' || q === 'D') {
+			$('#categoryDropdown').show();				
+		}
+	});
+})
+
+function showContainer() {	
+	$('.queryContainer').hide();
+	var q = $('#selectQueries1').val();
+	$('#containerForQuery'+q).show();
+}
+</script>
+</head>
+<div class="container">
+<h2 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">What kind of information do you wish to see?</h2>
+	<br>
+	<select id="selectQueries1" data-ng-model="selectedQuery">
+		<option value='' disabled selected>Select information that you wish to display</option>
+		<option value='A'>Display all information about a Restaurant</option>
+		<option value='B'>Display the full menu of a Restaurant</option>
+		<option value='C'>List the manager names and the locations of Restaurants for a category</option>
+		<option value='D'>Find the most expensive menu item of a Restaurant</option>
+		<option value='E'>List the average prices of menu items for each category</option>
+	</select>
+	<button id="query-button" ng-click="redirectToQuery(selectedQuery);" onclick="showContainer();"> Go! </button>
+
+	<select ng-model="restaurant" ng-options="rest.name for rest in restaurantList track by rest.restaurantid |orderBy:'name'" 
+	id="restaurantDropdown" class="queryDropdown">
+	</select>
+
+	<select ng-model="restaurantType" ng-options="t for t in types | orderBy:'t'" id="categoryDropdown" class="queryDropdown">
+	</select>
+
+	<select data-ng-model="restaurantType" id="categoryDropdown" class="queryDropdown">
+		<option data-ng-repeat="t in types | orderBy:'t'">{{t}}</option>
+	</select>
+<br>
+<br>
+	<div id="containerForQueryA" class="queryContainer">
+		<table>
+		    <tr>
+		    <th>Restaurant ID</th>
+		    <th>Restaurant Name</th>
+		    <th>Cuisine</th>
+			<th>Url</th>
+		  </tr>
+		  <tr ng-repeat="selectedRestaurant in selectR"> 
+		    <td>{{ selectedRestaurant.restaurantid}}</td>
+		    <td>{{ selectedRestaurant.name}}</td>
+		    <td>{{ selectedRestaurant.type }}</td>
+		    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
+		  </tr>
+		</table>
+	</div>
+
+	<div id="containerForQueryB" class="queryContainer">
+		<table>
+		    <tr>
+		    <th>MenuItem Name</th>
+		    <th>Price</th>
+		  </tr>
+		  <tr ng-repeat="selectedRestaurant in bData"> 
+		    <td>{{ selectedRestaurant.name}}</td>
+		    <td>{{ selectedRestaurant.price}}</td>
+		  </tr>
+		</table>
+	</div>
+
+
+	<div id="containerForQueryC" class="queryContainer">
+		<table>
+		    <tr>
+		    <th>Restaurant Name</th>
+		    <th>Manager Name</th>
+		    <th>Location Address</th>
+		    <th>Open Date of Location</th>
+		  </tr>
+		  <tr ng-repeat="selectedRestaurant in cData"> 
+		    <td>{{ selectedRestaurant.name}}</td>
+		    <td>{{ selectedRestaurant.manager_name}}</td>
+		    <td>{{ selectedRestaurant.street_address}}</td>
+		    <td>{{ selectedRestaurant.open_date}}</td>
+
+		  </tr>
+		</table>
+	</div>
+
+	<div id="containerForQueryD" class="queryContainer">
+		<table>
+		    <tr>
+		    <th>MenuItem Name</th>
+		    <th>Manager Name</th>
+		    <th>Opening Hour</th>
+		    <th>Closing Hour</th>
+		    <th>Url</th>
+		  </tr>
+		  <tr ng-repeat="selectedRestaurant in dData"> 
+		    <td>{{ selectedRestaurant.name}}</td>
+		    <td>{{ selectedRestaurant.manager_name}}</td>
+		    <td>{{ selectedRestaurant.hour_open}}</td>
+		    <td>{{ selectedRestaurant.hour_close}}</td>
+		    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
+
+		  </tr>
+		</table>
+	</div>
+
+
+	<div id="containerForQueryE" class="queryContainer">
+		<table>
+		    <tr>
+		    <th>Cuisine</th>
+		    <th>MenuItem Category</th>
+		    <th>Average Price of MenuItems</th>
+		  </tr>
+		  <tr ng-repeat="selectedRestaurant in eData"> 
+		    <td>{{ selectedRestaurant.type}}</td>
+		    <td>{{ selectedRestaurant.category}}</td>
+		    <td>{{ selectedRestaurant.average_price}}</td>
+		  </tr>
+		</table>
+	</div>
+
+</div>
