@@ -1,0 +1,24 @@
+<div class="container">
+
+	<h2 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">Register and start reviewing...</h2>
+		<form role="form" class="divcenter" onclick="return false;" ng-submit="insertRater(user)">
+			
+			<input ng-model="user.name" class="form-control input-lg not-dark required bottommargin-sm center" placeholder="Username" style="margin: 0 auto; width:500px;" required>
+			
+			<input ng-model="user.email" class="form-control input-lg not-dark required bottommargin-sm center" placeholder="Email" style="margin: 0 auto; width:500px;" required>
+			
+			<input type="password" class="form-control input-lg not-dark required center" ng-model="user.password" ng-minlength="3" ng-maxlength="10" placeholder="Password" style="margin: 0 auto; width:500px;" required>
+			
+			<select class="form-control input-lg not-dark required center"  style="margin: 0 auto; width:500px;margin-top:30px;" ng-model="user.type" required>
+			  	<option value='' disabled selected>Please choose a rater type</option>
+				<option value="Blog">Blog</option>
+				<option value="Online">Online</option>
+				<option value="Food Critic">Food Critic</option>
+			</select>
+
+		<button class="button button-border button-circle button-dark topmargin-sm" ng-click="insertRater(user)" type="submit">Register
+		</button>
+	</form>		
+	<h3 class="divcenter font-body" style="max-width: 700px; font-size: 20px;">or</h3>
+	<a href="#/login" id = "mainLoginButton"  class="button button-border button-circle button-rounded" data-easing="easeInOutExpo" data-speed="1250" data-offset="70">Login</a>					
+</div>

@@ -14,7 +14,7 @@ VALUES
 (DEFAULT, 'Baan Thai', 'Thai', 'http://www.baanthairestaurantottawa.ca/');
 INSERT INTO Restaurant
 VALUES
-(DEFAULT, 'Nando''s', 'Portugese', 'http://www.nandos.ca/');
+(DEFAULT, 'Nandos', 'Portugese', 'http://www.nandos.ca/');
 INSERT INTO Restaurant
 VALUES
 (DEFAULT, 'Soca Kitchen & Pub', 'Spanish', 'http://www.socapub.com/');
@@ -29,7 +29,7 @@ VALUES
 (DEFAULT, 'Shawarma Prince', 'Middle Eastern', 'http://princegourmet.com/');
 INSERT INTO Restaurant
 VALUES
-(DEFAULT, 'East Side Mario''s', 'Italian', 'http://www.eastsidemarios.com/');
+(DEFAULT, 'East Side Marios', 'Italian', 'http://www.eastsidemarios.com/');
 INSERT INTO Restaurant
 VALUES
 (DEFAULT, 'Red Lobster', 'Seafood', 'http://www.redlobster.ca/');
@@ -47,52 +47,139 @@ VALUES
 (DEFAULT, 'Silk Road Kabob House', 'Middle Eastern', 'http://silkroadkabobhouse.com/');
 
 
+/***Add Locations **/
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 1, '2001-04-25', 'Stanley Newton', '613-231-8569', '430 Bank St', '09:00:00', '23:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 2, '2004-06-05', 'Adam Yang', '613-546-4361', '456 Montreal Rd', '09:30:00', '23:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 3, '2003-06-25', 'Abibo Bani', '613-452-6512', '622 Montreal Rd', '20:30:00', '22:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 4, '2008-11-16', 'Yang Phong', '613-856-4521', '261 Centrepointe Dr', '10:00:00', '21:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 5, '2007-01-28', 'Balmeet Dhaliwal', '613-465-7453', '1008 St.Laurent Blvd', '09:00:00', '21:00:00');
+
+
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 6, '2002-06-25', 'Marcus Smart', '613-461-9864', '705 Prince Albert St', '09:00:00', '20:00:00');
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 7, '2006-05-05', 'Sandra Black', '613-856-9631', '336 Queen Mary St', '09:00:00', '22:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 7, '2006-05-05', 'Alex Maquine', '613-461-7458', '785 March Rd', '09:30:00', '21:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 8, '1995-08-08', 'Henry Falck', '613-748-5896', '465 King Edward Ave', '08:00:00', '18:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 9, '2005-07-06', 'Kim Sanchez', '613-465-7852', '673 March Rd', '09:00:00', '20:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 10, '2003-05-08', 'Sara Arias', '613-452-6325', '88 Strandherd Dr', '10:30:00', '21:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 10, '2003-05-08', 'Megan Good', '613-745-6543', '46 Russel Rd', '10:30:00', '21:00:00');
+
+
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 11, '2009-03-21', 'Jenna Sadik', '613-862-9455', '125 Baseline Dr', '11:30:00', '19:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 12, '2002-07-22', 'Moran Tran', '613-745-8562', '374 Cummings Ave', '11:00:00', '22:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 12, '2006-01-12', 'Mona Yusra', '613-652-4585', '452 Baycrest Ave', '10:00:00', '21:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 13, '2011-03-07', 'Melanie Malone', '613-654-7458', '562 Carling Rd', '11:00:00', '18:00:00');
+
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 14, '2001-04-25', 'Madison Square', '613-452-9586', '342 Basline Dr', '12:00:00', '20:30:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 14, '2011-08-17', 'Rochelle Pasting', '613-758-4512', '475 St.Laurent Blvd', '12:00:00', '20:30:00');
+
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 15, '2003-11-24', 'Kendrick Lark', '613-752-6522', '121 Merivale Rd', '11:30:00', '22:00:00');
+
+INSERT INTO LOCATION 
+VALUES
+(DEFAULT, 15, '2005-04-23', 'Iman Flower', '613-465-5523', '24 Cresthaven St', '10:30:00', '22:00:00');
+
 /***Add Raters**/
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'mhare095@uottawa.ca', 'HungryCritic', '2012-11-26', 'Food Critic', 3);
+(DEFAULT, 'mhare095@uottawa.ca', 'james', 'HungryCritic', '2012-11-26', 'Food Critic', 3);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'shash034@uottawa.ca', 'SarmadTheRater', '2014-02-05', 'Online', 1);
+(DEFAULT, 'shash034@uottawa.ca', 'johnson', 'SarmadTheRater', '2014-02-05', 'Online', 1);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'someguy54@uottawa.ca', 'SomeGuy', '2013-01-03', 'Food Critic', 4);
+(DEFAULT, 'someguy54@uottawa.ca', 'lala', 'SomeGuy', '2013-01-03', 'Food Critic', 4);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'somegirl65@uottawa.ca', 'SomeGirl', '2012-05-24', 'Blog', 2.5);
+(DEFAULT, 'somegirl65@uottawa.ca','lolo', 'SomeGirl', '2012-05-24', 'Blog', 2.5);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'test58@uottawa.ca', 'FoodTester', '2013-11-26', 'Food Critic', 2.9);
+(DEFAULT, 'test58@uottawa.ca', 'lola','FoodTester', '2013-11-26', 'Food Critic', 2.9);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'srana056@uottawa.ca', 'ILoveFood', '2014-03-08', 'Food Critic', 3.4);
+(DEFAULT, 'srana056@uottawa.ca','worldPremiere', 'ILoveFood', '2014-03-08', 'Food Critic', 3.4);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'lovefood23@uottawa.ca', 'AnyCuisineLover', '2014-12-01', 'Food Critic', 2.1);
+(DEFAULT, 'lovefood23@uottawa.ca','pass344', 'AnyCuisineLover', '2014-12-01', 'Food Critic', 2.1);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'johnny146@uottawa.ca', 'Johnny146', '2012-11-26', 'Online', 3.2);
+(DEFAULT, 'johnny146@uottawa.ca', 'lifeGoals', 'Johnny146', '2012-11-26', 'Online', 3.2);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'michael15@uottawa.ca', 'Michael15', '2012-11-02', 'Online', 3.8);
+(DEFAULT, 'michael15@uottawa.ca', 'depressed', 'Michael15', '2012-11-02', 'Online', 3.8);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'rana41@uottawa.ca', 'Rana41', '2013-07-08', 'Online', 3.7);
+(DEFAULT, 'rana41@uottawa.ca', 'confused123', 'Rana41', '2013-07-08', 'Online', 3.7);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'kim52@uottawa.ca', 'Kim52', '2013-02-01', 'Online', 2.5);
+(DEFAULT, 'kim52@uottawa.ca', 'passyPass', 'Kim52', '2013-02-01', 'Online', 2.5);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'mario23@uottawa.ca', 'Mario23', '2015-03-12', 'Online', 1.9);
+(DEFAULT, 'mario23@uottawa.ca', 'add', 'Mario23', '2015-03-12', 'Online', 1.9);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'bistrolover@uottawa.ca', 'BistroLover', '2014-06-07', 'Blog', 1.2);
+(DEFAULT, 'bistrolover@uottawa.ca', 'newpass', 'BistroLover', '2014-06-07', 'Blog', 1.2);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'foodfiend451@uottawa.ca', 'FoodFiend451', '2014-08-10', 'Blog', 4.5);
+(DEFAULT, 'foodfiend451@uottawa.ca', 'notSure', 'FoodFiend451', '2014-08-10', 'Blog', 4.5);
 INSERT INTO Rater
 VALUES
-(DEFAULT, 'sweetooth657@uottawa.ca', 'SweetTooth657', '2013-09-10', 'Blog', 4.1);
+(DEFAULT, 'sweetooth657@uottawa.ca', 'boredJohnson', 'SweetTooth657', '2013-09-10', 'Blog', 4.1);
 
 
 
@@ -690,65 +777,65 @@ VALUES
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'11','Maritime Lobster','food','Main','Steamed, or roasted with broccoli, rice and cheese stuffing. Served with sweet corn on the cob and baby gold potatoes. ', 29.99);
+(DEFAULT,'11','Maritime Lobster','Food','Main','Steamed, or roasted with broccoli, rice and cheese stuffing. Served with sweet corn on the cob and baby gold potatoes. ', 29.99);
 
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'11','Island Jumbo Coconut Shrimp','food','main','Hand–dipped in coconut batter, then tossed in coconut and fried until golden brown.', 17.99);
+(DEFAULT,'11','Island Jumbo Coconut Shrimp','Food','Main','Hand–dipped in coconut batter, then tossed in coconut and fried until golden brown.', 17.99);
 
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'11','Stuffed Mushrooms','food','starter','Fresh mushrooms with a seafood, broccoli, rice and cheese stuffing, smothered in white Cheddar cheese and baked until bubbly brown', 9.99);
+(DEFAULT,'11','Stuffed Mushrooms','Food','Starter','Fresh mushrooms with a seafood, broccoli, rice and cheese stuffing, smothered in white Cheddar cheese and baked until bubbly brown', 9.99);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'12','Vietnamese Spring Rolls','starter','food','Fresh vegetables wrapped in rice paper', 6.45);
+(DEFAULT,'12','Vietnamese Spring Rolls','Starter','Food','Fresh vegetables wrapped in rice paper', 6.45);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'12','Banana Treat','dessert','food','Deep Fried Banana with Honey', 4.95);
+(DEFAULT,'12','Banana Treat','Dessert','Food','Deep Fried Banana with Honey', 4.95);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'12','Stir Rice','main','food','Stir Fried Shrimp with Basil Leaves and Cashew on Rice', 7.25);
+(DEFAULT,'12','Stir Rice','Main','Food','Stir Fried Shrimp with Basil Leaves and Cashew on Rice', 7.25);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'13','Montanara Pizza','main','food',' Tomato sauce, mozzarella, grilled eggplant, zucchini, red onion and bell peppers with fresh basil ', 16.00);
+(DEFAULT,'13','Montanara Pizza','Main','Food',' Tomato sauce, mozzarella, grilled eggplant, zucchini, red onion and bell peppers with fresh basil ', 16.00);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'13','Minestrone','starter','food','Italian vegetable soup', 7.00);
+(DEFAULT,'13','Minestrone','Starter','Food','Italian vegetable soup', 7.00);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'13','Pescatore','main','food','Fettuccine with tiger shrimp, bay scallops, P.E.I. mussels and red bell peppers in a marinara sauce ', 21.00);
+(DEFAULT,'13','Pescatore','Main','Food','Fettuccine with tiger shrimp, bay scallops, P.E.I. mussels and red bell peppers in a marinara sauce ', 21.00);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'14','BBQ Brisket Burger','main','food','Mesquite-grilled beef topped with our Texas-style smoked brisket, Original BBQ sauce, garlic mushrooms and crispy onions.', 15.49);
+(DEFAULT,'14','BBQ Brisket Burger','Main','Food','Mesquite-grilled beef topped with our Texas-style smoked brisket, Original BBQ sauce, garlic mushrooms and crispy onions.', 15.49);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'14','Mexi-Beef Taco','main','starter','Soft flour tortillas brushed with Mole and topped with Mexi-beef, Tomatillo salsa, peppers & onions and Cheddar cheese. ', 14.99);
+(DEFAULT,'14','Mexi-Beef Taco','Main','Starter','Soft flour tortillas brushed with Mole and topped with Mexi-beef, Tomatillo salsa, peppers & onions and Cheddar cheese. ', 14.99);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'14','Lone Star Flat Iron Steak','main','starter',' 6oz. boneless top-blade cut steak, Mesquite grilled', 18.49);
+(DEFAULT,'14','Lone Star Flat Iron Steak','Main','Starter',' 6oz. boneless top-blade cut steak, Mesquite grilled', 18.49);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'15','Persian Soltani Kabob','food','main','One Skewer of Barg & One Skewer of Koobideh Kabob (Beef Shami).', 22.99);
+(DEFAULT,'15','Persian Soltani Kabob','Food','Main','One Skewer of Barg & One Skewer of Koobideh Kabob (Beef Shami).', 22.99);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'15','Sambosas','food','starter','Choice of Beef or Vegetables fried wraps', 7.99);
+(DEFAULT,'15','Sambosas','Food','Starter','Choice of Beef or Vegetables fried wraps', 7.99);
 
 INSERT INTO MenuItem
 VALUES
-(DEFAULT,'15','Persian Tea','desert','drink','Creamy tea with almonds and honey', 3.50);
+(DEFAULT,'15','Persian Tea','Dessert','Beverage','Creamy tea with almonds and honey', 3.50);
 
 
 
@@ -983,6 +1070,3 @@ VALUES
 INSERT INTO RatingItem
 VALUES
 ('2','45','2015-01-09 03:40:01', 2.1,'Too sweet and a waste of money.');
-
-
-

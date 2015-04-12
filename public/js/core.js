@@ -1,10 +1,15 @@
-var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'Authentication', 'ngCookies']);
+var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'Authentication', 'ngCookies', 'datatables']);
 restaurantProject.config(['$routeProvider', function($routeProvider) {
     $routeProvider  
         .when('/login', 
             {
                 controller: 'LoginController',
                 templateUrl: 'html/login.html'
+            })        
+         .when('/signup', 
+            {
+                controller: 'RestaurantController',
+                templateUrl: 'html/signup.html'
             })
         .when('/home', 
             {
@@ -21,6 +26,11 @@ restaurantProject.config(['$routeProvider', function($routeProvider) {
                 controller: 'RestaurantController',
                 templateUrl: 'html/RatingsofRestaurants.html'
             })
+        .when('/viewRestaurant', 
+            {
+                controller: 'RestaurantController',
+                templateUrl: 'html/viewRestaurant.html'
+            })
         .when('/raters', 
             {
                 controller: 'RestaurantController',
@@ -29,8 +39,8 @@ restaurantProject.config(['$routeProvider', function($routeProvider) {
         .otherwise({redirectTo: '/login'});
 }]);
 
-restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$http','$location', function($scope, $rootScope, $http, $location) {        
-        // get default data. Restaurants, Raters, RestaurantTypes
+restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$http','$location', '$route', function($scope, $rootScope, $http, $location, $route) {        
+        // get default data. Restaurants, Raters, RestaurantTypes        
         $http.get('/restaurant').success(function(data) {            
                 $scope.restaurantList = data;                
                 var alreadyAdded = {};
@@ -49,11 +59,62 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                 $scope.restaurantTypeY = $scope.types[0];
         });
 
-         $http.get('/raters').success(function(data) {            
+        $http.get('/getRaters').success(function(data) {            
                 $scope.raterList = data;                                
                 $scope.raterName = $scope.raterList[0];                
         });
 
+        $scope.updateViewingRestaurant = function(restaurant) {             
+            $rootScope.viewRestaurantInfo = restaurant;               
+            $http.get('/rating/' + restaurant.restaurantid).success(function(data) {                
+                $rootScope.viewRestaurantRatings = data;                                
+            });            
+            $http.get('/getMenuItems/' + restaurant.restaurantid).success(function(data) {                                
+                $rootScope.viewRestaurantItems = data;                 
+                $location.path('/viewRestaurant');                    
+            });            
+            
+        }
+
+        $scope.deleteRestaurant = function(restaurant) {            
+            $http.get('/deleteRestaurant/' + restaurant.restaurantid).success(function(data) {
+                $http.get('/restaurant').success(function(data) {            
+                    $scope.restaurantList = data;                                                                                          
+                    $route.reload();
+                });                            
+            });                     
+            $route.reload();   
+        }
+
+        $scope.deleteRater = function(rater) {            
+           $http.get('/deleteRater/' + rater.userid).success(function(data) {                
+                $http.get('/getRaters').success(function(data) {            
+                    $scope.raterList = data;                                
+                    $route.reload();         
+                });
+            });
+           $route.reload();
+        }
+
+        $scope.deleteMenuItem = function(item) {                                    
+            $http.get('/deleteMenuItem/' + item.itemid).success(function(data) {
+                $http.get('/getMenuItems/' + $scope.viewRestaurantInfo.restaurantid).success(function(data) {                                
+                    $rootScope.viewRestaurantItems = data; 
+                    $route.reload();
+                });                           
+            });                     
+            $route.reload();   
+        }
+
+         $scope.addMenuItem = function(item) {            
+            $http.get('/deleteMenuItem/' + item.itemid).success(function(data) {
+                $http.get('/getMenuItems/' + item.restaurantid).success(function(data) {            
+                    $rootScope.viewRestaurantItems = data; 
+                    $route.reload();
+                });                           
+            });                     
+            $route.reload();   
+        }
 
         $scope.getRatings = function(restaurant) {            
             $http.get('/rating/' + restaurant.restaurantid).success(function(data) {                
@@ -95,7 +156,6 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
             });
         }
 
-
        $scope.F = function() {            
             $http.get('/F').success(function(data) {                
                 $scope.frestaurantQuery = data;
@@ -110,7 +170,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
         }
 
         $scope.H = function() {            
-            $http.get('/H/' + $scope.raterName).success(function(data) {                                
+            $http.get('/H/' + $scope.raterName.userid).success(function(data) {                                
                 $scope.hrestaurantQuery = data;
             });
         }
@@ -126,20 +186,94 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                 $scope.jrestaurantQuery = data;
             });
         }
+
+        $scope.K = function() {            
+           $http.get('/K').success(function(data) {                
+                $scope.kData = data;
+            });
+        }
+
+        $scope.L = function() {            
+           $http.get('/L').success(function(data) {                
+                $scope.lData = data;
+            });
+        }
+
+        $scope.M = function(id) {            
+           $http.get('/M/' + $scope.restaurant.restaurantid).success(function(data) {                
+                $scope.mData = data;
+            });
+        }
+
+        $scope.N = function(raterName) {            
+           $http.get('/N/' + raterName).success(function(data) {                
+                $scope.nData = data;
+            });
+        }
+
+        $scope.O = function() {            
+           $http.get('/O').success(function(data) {                
+                $scope.oData = data;
+            });
+        }
+
+          $scope.insertRater = function(rater) {            
+             $http.get('/insertRater/' + rater.email + '/' + rater.password + '/' + rater.name + '/' + rater.type ).success(function(data) {
+                 $location.path('/login');
+             });
+          }
+
+
+       $scope.insertRestaurant = function(restInfo) {            
+            $http.get('/insertRestaurant/' + restInfo.nameOfRestaurant + '/' + restInfo.typeOfRestaurant + '/' + restInfo.url).success(function(data) {                
+                $http.get('/restaurant').success(function(data) {            
+                    $scope.restaurantList = data;         
+                    $route.reload();
+                })
+            });            
+            $scope.xyz = restInfo.nameOfRestaurant;
+            $scope.xyz1 = " has been added to the database!";
+           
+            restInfo.nameOfRestaurant = " ";
+            restInfo.typeOfRestaurant = " ";
+            restInfo.url = " ";    
+            $route.reload();
+        }
+
+       $scope.insertMenuItem = function(item) {            
+            $http.get('/insertMenuItem/' +  $scope.viewRestaurantInfo.restaurantid + '/' + item.nameOfItem + '/' + item.itemType + '/' + item.category + '/' + item.descriptionn + '/' + item.price).success(function(data) {  
+                $http.get('/getMenuItems/' + $scope.viewRestaurantInfo.restaurantid).success(function(data) {                                
+                    $rootScope.viewRestaurantItems = data; 
+                    $route.reload();
+                });        
+            });
+
+            $scope.xyz3 =   item.nameOfItem;
+            $scope.xyz4 = " has been added to the database!";
+           
+            item.nameOfItem = " ";
+            item.itemType = " ";
+            item.category = " ";
+            item.descriptionn = " "; 
+            item.price = null;
+            $route.reload();
+        }
 }]);
 
-restaurantProject.run(['$rootScope', '$location', '$cookieStore', '$http',
-    function ($rootScope, $location, $cookieStore, $http) {
+restaurantProject.run(['$rootScope', '$location', '$cookieStore', '$http', '$route',
+    function ($rootScope, $location, $cookieStore, $http, $route) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
-  
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in
-            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+            // redirect to login page if not logged in            
+            if ($location.path() === '/signup') {
+                $location.path('/signup');
+            }                
+            else if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
                 $location.path('/login');
-        }
-    });
+            }                            
+        });       
 }]);

@@ -23,6 +23,10 @@ app.get('/restaurant', function(req,res){
     dbOperations.getRestaurants(req,res);    
 });
 
+app.get('/deleteRestaurant/:restaurantid', function(req,res){   
+    dbOperations.deleteRestaurant(req,res);    
+});
+
 app.get('/rating/:restaurantid', function(req,res){ 
     dbOperations.getRatings(req,res);    
 });
@@ -59,7 +63,7 @@ app.get('/G', function(req,res){
     dbOperations.g(req,res);    
 });
 
-app.get('/H/:raterName', function(req,res){ 
+app.get('/H/:id', function(req,res){ 
     dbOperations.h(req,res);    
 });
 
@@ -69,6 +73,58 @@ app.get('/I/:type', function(req,res){
 
 app.get('/J/:morePopularX/:morePopularY', function(req,res){    
     dbOperations.j(req,res);    
+});
+
+app.get('/K', function(req,res){  
+    dbOperations.queryK(req,res);    
+});
+
+app.get('/L', function(req,res){  
+    dbOperations.queryL(req,res);    
+});
+
+app.get('/M/:id', function(req,res){  
+    dbOperations.queryM(req,res);    
+});
+
+app.get('/N/:name', function(req,res){  
+    dbOperations.queryN(req,res);    
+});
+
+app.get('/O', function(req,res){  
+    dbOperations.queryO(req,res);    
+});
+
+app.get('/deleteRestaurant/:RestaurantID', function(req,res){       
+    dbOperations.deleteRestaurant(req,res);    
+});
+
+app.get('/deleteRater/:UserID', function(req,res){       
+    dbOperations.deleteRater(req,res);    
+});
+
+app.get('/deleteMenuItem/:ItemID', function(req,res){       
+    dbOperations.deleteMenuItem(req,res);    
+});
+
+app.get('/getRaters', function(req,res){       
+    dbOperations.getRaters(req,res);    
+});
+
+app.get('/getMenuItems/:RestaurantID', function(req,res){       
+    dbOperations.getMenuItems(req,res);    
+});
+
+app.get('/insertRater/:email/:password/:name/:type', function(req,res){       
+    dbOperations.insertRater(req,res);    
+});
+
+app.get('/insertRestaurant/:nameOfRestaurant/:typeOfRestaurant/:url', function(req,res){   
+    dbOperations.insertRestaurant(req,res);    
+});
+
+app.get('/insertMenuItem/:restaurantID/:nameOfItem/:itemType/:category/:descriptionn/:price', function(req,res){   
+    dbOperations.insertMenuItem(req,res);    
 });
 
 app.set('port', process.env.PORT || 3001);
