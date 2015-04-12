@@ -26,7 +26,7 @@ CREATE TABLE MenuItem
 	ItemID serial PRIMARY KEY,
 	RestaurantID int,
 	name varchar(50),
-	type varchar(15),
+	type varchar(15),			
 	category varchar(15),
 	description varchar,
 	price numeric(4, 2),

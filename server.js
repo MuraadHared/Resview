@@ -19,6 +19,19 @@ app.get('/login/:user/:pass', function(req,res){
 });
 
 // these are accessed by angularjs to create, read, update and delete (CRUD) data
+
+
+app.get('/insertRestaurant/:nameOfRestaurant/:typeOfRestaurant/:url', function(req,res){   
+    dbOperations.insertRestaurant(req,res);    
+});
+
+
+app.get('/insertMenuItem/:restaurantID/:nameOfItem/:itemType/:category/:descriptionn/:price', function(req,res){   
+    dbOperations.insertMenuItem(req,res);    
+});
+
+
+
 app.get('/restaurant', function(req,res){	
     dbOperations.getRestaurants(req,res);    
 });
@@ -59,7 +72,7 @@ app.get('/G', function(req,res){
     dbOperations.g(req,res);    
 });
 
-app.get('/H/:raterName', function(req,res){ 
+app.get('/H/:raterDropdown', function(req,res){ 
     dbOperations.h(req,res);    
 });
 

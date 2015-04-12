@@ -127,9 +127,9 @@ function showContainer() {
         <select id="selectQueries1" data-ng-model="selectedQuery" style='width:500px'>
             <option value='' disabled selected>Select information that you wish to display</option>
             <option value='F'>Find the total number of rating for each restaurant, for each rater.</option>
-            <option value='G'>Display the details of the restaurants that have not been rated in January 2015.</option>
+            <option value='G'>Display the details of the restaurants that have not been rated in January 2015</option>
             <option value='H'>Find the names and opening dates of the restaurants that obtained Staff rating that is lower than any rating given by rater</option>
-            <option value='I'>List the details of the Type Y restaurants that obtained the highest Food rating. </option>
+            <option value='I'>List the details of the certain type of restaurants that obtained the highest Food rating. </option>
             <option value='J'>Determine whether a certain type is more popular than other restaurants.</option>
         </select>
         <button id="query-button" ng-click="redirectToQuery(selectedQuery);" onclick="showContainer();"> Go! </button>
@@ -138,10 +138,11 @@ function showContainer() {
         id="restaurantDropdown" class="queryDropdown">
         </select>
 
-        <select ng-model="raterName" ng-options="r.name for r in raterList | orderBy:'name'" 
+        <select ng-model="raterDropdown" ng-options="r.name for r in raterList | orderBy:'name'" 
         id="raterDropdown"  class="queryDropdown"> 
         </select>
-        <select ng-model="restaurantType" ng-options="t for t in types | orderBy:'t'" id="restaurantTypeX" class="queryDropdown">
+
+        <select ng-model="restaurantType" ng-options="t for t in types | orderBy:'t'" id="restaurantType" class="queryDropdown">
         </select>
 
         <div class="queryDropdown" id="popularityDropdowns">

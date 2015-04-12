@@ -1,10 +1,26 @@
 // DB access operations
 
 var pg = require('pg');
-var connection = "postgres://postgres:2132@localhost:5432/RestaurantProject";
+var connection = "postgres://postgres:admin@localhost:5432/postgres";
 // req holds all the data that was entered from the view (ex: req.query.firstName)
 // 
 module.exports = {
+
+insertRestaurant : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect();            
+        client.query("INSERT INTO Restaurant VALUES (DEFAULT, '" + req.params.nameOfRestaurant + "', '" + req.params.typeOfRestaurant + "', '" + req.params.url +"')");    
+
+    },
+
+insertMenuItem : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect(); 
+                                                                    
+        client.query("INSERT INTO MenuItem VALUES (DEFAULT,'" + req.params.restaurantID + "','" + req.params.nameOfItem + "','" + req.params.itemType + "','" + req.params.category + "','"+ req.params.descriptionn + "',"+  req.params.price + ")");   
+    },
+
+    
     getRaters: function(req, res) {            
         var client = new pg.Client(connection);
         client.connect();
@@ -105,7 +121,7 @@ module.exports = {
         client.connect();
 
         // build query
-        var query = client.query("SELECT L.open_date , R.name FROM Restaurant R, Location L, Rating RT WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID = RT.RestaurantID AND RT.staff < ( SELECT GREATEST (MAX(RT1.staff), MAX(RT1.food), MAX(RT1.price), MAX(RT1.mood)) FROM Rating RT1, Rater RA WHERE RT1.UserID = RA.UserID AND RA.name = '"+ req.params.raterName+"')");
+        var query = client.query("SELECT L.open_date , R.name FROM Restaurant R, Location L, Rating RT WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID = RT.RestaurantID AND RT.staff < ( SELECT GREATEST (MAX(RT1.staff), MAX(RT1.food), MAX(RT1.price), MAX(RT1.mood)) FROM Rating RT1, Rater RA WHERE RT1.UserID = RA.UserID AND RA.name = '"+ req.params.raterDropdown+"')");
 
         // add rows obtained from query to result
         query.on("row", function (row, result) { 
@@ -143,7 +159,7 @@ module.exports = {
         client.connect();
 
         // build query
-        var query = client.query("SELECT CASE WHEN ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularX + "' AND RA.RestaurantID = R.RestaurantID) >  (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularY + "' AND RA.RestaurantID = R.RestaurantID)  THEN 'Type X restaurants are more popular than Type Y restaurants' ELSE 'Type X restaurants are NOT AS popular as Type Y restaurants' END AS popular");
+        var query = client.query("SELECT CASE WHEN ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularX + "' AND RA.RestaurantID = R.RestaurantID) >  (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularY + "' AND RA.RestaurantID = R.RestaurantID)  THEN '"+ req.params.morePopularX + " restaurants are more popular than " + req.params.morePopularY + " restaurants' ELSE '"+ req.params.morePopularX + " restaurants are NOT AS popular as "+ req.params.morePopularY + " restaurants' END AS popular");
 
         // add rows obtained from query to result
         query.on("row", function (row, result) { 

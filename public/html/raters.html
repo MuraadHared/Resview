@@ -1,0 +1,53 @@
+<div class="container">
+    <h1>Inserting And Deleting </h1>
+    <br />
+
+        <h2>Insert Restaurant </h2>
+    <br />
+
+
+  <form novalidate class="css-form">  
+  Restaurant Name: <input type="text" ng-model="restInfo.nameOfRestaurant" required><br>
+  Type of Restaurant: <select ng-model="restInfo.typeOfRestaurant" id="categoryDropdown" class="queryDropdown">
+            <option value='' disabled selected>Select Type</option>
+            <option data-ng-repeat="t in types | orderBy:'t'">{{t}}</option>
+        </select> <br>
+  URL:   <input type="text  " ng-model="restInfo.url" required>
+  <br>
+  <input type="submit" ng-click="insertRestaurant(restInfo);" value="Insert Restaurant!" />
+  </form>
+
+
+<p> <span style = "color:restaurantDropdown"> {{xyz}} </span> {{xyz1}} </p> 
+
+
+        <h2>Insert MenuItem </h2>
+    <br />
+
+
+
+ <form novalidate class="css-form">
+
+ Restaurant:  <select ng-model="restaurantName" ng-options="rest.name for rest in restaurantList track by rest.restaurantid |orderBy:'name'" 
+        id="restaurantDropdown" class="queryDropdown">
+        <option value='' disabled selected>Select Restaurant</option>
+        </select>
+  <br>
+  Type:&nbsp;&nbsp;  <input type="radio" ng-model="item.itemType"value="Food" checked>Food  
+  <input type="radio" ng-model="item.itemType" value="Beverage">Beverage
+  <br>
+  <br>
+  Caregory: &nbsp;&nbsp; <input type="radio" ng-model="item.category" value="Starter" checked>Starter    
+  <input type="radio" ng-model="item.category" value="Main">Main  
+  <input type="radio" ng-model="item.category" value="Desert">Desert
+  <br>
+  Menu Item Name:<input type="text" ng-model="item.nameOfItem" required> <br>
+  Description:   <input type="text" ng-model="item.descriptionn" required> <br>
+  Price:   <input type="number" ng-model="item.price" required> <br>
+  <input type="submit" ng-click="insertMenuItem(item)" value="Insert Menu Item!" />
+
+</form>
+
+<p> <span style = "color:red"> {{xyz3}} </span> {{xyz4}} </p> 
+
+</div>

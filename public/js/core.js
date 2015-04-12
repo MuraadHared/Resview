@@ -24,7 +24,7 @@ restaurantProject.config(['$routeProvider', function($routeProvider) {
         .when('/raters', 
             {
                 controller: 'RestaurantController',
-                templateUrl: 'html/RatersAndTheirRatings.html'
+                templateUrl: 'html/raters.html'
             })                   
         .otherwise({redirectTo: '/login'});
 }]);
@@ -53,6 +53,34 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                 $scope.raterList = data;                                
                 $scope.raterName = $scope.raterList[0];                
         });
+
+
+       $scope.insertRestaurant = function(restInfo) {            
+            $http.get('/insertRestaurant/' + restInfo.nameOfRestaurant + '/' + restInfo.typeOfRestaurant + '/' + restInfo.url).success(function(data) {                
+            });
+
+        $scope.xyz = restInfo.nameOfRestaurant;
+        $scope.xyz1 = " has been added to the database!";
+       
+        restInfo.nameOfRestaurant = " ";
+        restInfo.typeOfRestaurant = " ";
+        restInfo.url = " ";
+        
+        }
+
+       $scope.insertMenuItem = function(item) {            
+            $http.get('/insertMenuItem/' +  $scope.restaurantName.restaurantid + '/' + item.nameOfItem + '/' + item.itemType + '/' + item.category + '/' + item.descriptionn + '/' + item.price).success(function(data) {             
+            });
+
+        $scope.xyz3 =   item.nameOfItem;
+        $scope.xyz4 = " has been added to the database!";
+       
+        item.nameOfItem = " ";
+        item.itemType = " ";
+        item.category = " ";
+        item.descriptionn = " "; 
+        item.price = null;
+        }
 
 
         $scope.getRatings = function(restaurant) {            
@@ -110,7 +138,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
         }
 
         $scope.H = function() {            
-            $http.get('/H/' + $scope.raterName).success(function(data) {                                
+            $http.get('/H/' + $scope.raterDropdown.name).success(function(data) {                                
                 $scope.hrestaurantQuery = data;
             });
         }
