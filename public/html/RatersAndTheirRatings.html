@@ -212,16 +212,26 @@ function showContainer() {
 		<table datatable="ng">
 			<thead>
 			    <tr>
-				    <th>Name</th>
-				    <th>Type</th>
-				    <th>Email</th>					
+				    <th>Rater Name</th>
+				    <th>Rater Type</th>
+				    <th>Rater Email</th>					
+				    <th>Restaurat Name</th>
+				    <th>Price</th>
+				    <th>Food</th>
+				    <th>Mood</th>
+				    <th>Price</th>
 			  	</tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="a in oData"> 			   
-			    <td>{{ a.name}}</td>
-			    <td>{{ a.type }}</td>
-			    <td>{{ a.email }}</td>			    
+			    <td>{{ a.rater_name}}</td>
+			    <td>{{ a.rater_type }}</td>
+			    <td>{{ a.rater_email }}</td>			    
+			    <td>{{ a.name }}</td>			    
+			    <td><span stars>{{ a.price }}</span></td>			    
+			    <td><span stars>{{ a.food }}</span></td>			    
+			    <td><span stars>{{ a.mood }}</span></td>			    
+			    <td><span stars>{{ a.staff }}</span></td>			    
 			  </tr>
 			</tbody>
 		</table>

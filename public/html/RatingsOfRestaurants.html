@@ -153,48 +153,82 @@ function showContainer() {
     
     <div id="containerForQueryF" class="queryContainer">
         <table datatable="ng">        
-            <tr ng-repeat="result in frestaurantQuery">
-                <td>{{ result.user_name }}</td>
-                <td>{{ result.restaurant_name }}</td>
-                <td>{{ result.number_of_ratinings }}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th style="text-align:center">User Name</th>
+                    <th style="text-align:center">Restaurant Name</th>
+                    <th align=style="text-align:center">Number Of Ratings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in frestaurantQuery">
+                    <td>{{ result.user_name }}</td>
+                    <td>{{ result.restaurant_name }}</td>
+                    <td>{{ result.number_of_ratinings }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div id="containerForQueryG" class="queryContainer">
         <table datatable="ng">
-          <tr ng-repeat="result1 in grestaurantQuery">
-            <td>{{ result1.name }}</td>
-            <td>{{ result1.type }}</td>
-            <td>{{ result1.phone_number}}</td>
-          </tr>
-        </table>
+          <thead>
+                <tr>
+                    <th style="text-align:center">Restaurant Name</th>
+                    <th style="text-align:center">Restaurant Type</th>
+                    <th style="text-align:center">Phone Number</th>
+                </tr>
+            </thead>
+        <tbody>
+      <tr ng-repeat="result1 in grestaurantQuery">
+        <td>{{ result1.name }}</td>
+        <td>{{ result1.type }}</td>
+        <td>{{ result1.phone_number}}</td>
+      </tr>
+    </tbody>
+ </table>
     </div>
 
     <div id="containerForQueryH" class="queryContainer">
         <table datatable="ng">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Restaurant Name</th>
+                    <th style="text-align:center">Open Date</th>
+                </tr>
+            </thead>
+        <tbody>
           <tr ng-repeat="result2 in hrestaurantQuery">
-            <td>{{ result2.open_date }}</td>
             <td>{{ result2.name }}</td>
+            <td>{{ result2.open_date | limitTo: 10 }}</td>
           </tr>
+      </tbody>
         </table>
     </div>
 
 
     <div id="containerForQueryI" class="queryContainer">
         <table datatable="ng">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Restaurant Name</th>
+                    <th style="text-align:center">User Name</th>
+                    <th style="text-align:center">Rating</th>
+                </tr>
+            </thead>
+        <tbody>
           <tr ng-repeat="result3 in irestaurantQuery">
             <td>{{ result3.restaurant_name }}</td>
             <td>{{ result3.user_name }}</td>
+            <td>{{ result3.food }}</td>
             </tr>
+        </tbody>
         </table>
     </div>
 
-    <div id="containerForQueryJ" class="queryContainer">
-        <table datatable="ng">
-          <tr ng-repeat="result4 in jrestaurantQuery">
-            <td>{{ result4.popular }}</td>
-            </tr>
-        </table>
+    <div id="containerForQueryJ" class="queryContainer">        
+          <div ng-repeat="result4 in jrestaurantQuery">
+            {{ result4.popular }}
+           </div>                    
     </div>
 </div>

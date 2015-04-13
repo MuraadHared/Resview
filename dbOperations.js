@@ -1,7 +1,7 @@
 // DB access operations
 
 var pg = require('pg');
-var connection = "postgres://postgres:admin@localhost:5432/postgres";
+var connection = "postgres://postgres:2132@localhost:5432/RestaurantProject";
 // req holds all the data that was entered from the view (ex: req.query.firstName)
 // 
 module.exports = {
@@ -347,7 +347,7 @@ module.exports = {
         var client = new pg.Client(connection);
         client.connect();        
 
-        var query = client.query("Select r.name, r.type, r.email, rst.name, rat.price, rat.food, rat.mood, rat.staff FROM Rater r, Rating rat, Restaurant rst WHERE r.UserID = rat.UserID AND rat.RestaurantID = rst.RestaurantID AND 2 <= ( Select COUNT(*) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) AND (1 <= ( SELECT stddev_samp(rat2.price) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= (SELECT stddev_samp(rat2.food) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= ( SELECT stddev_samp(rat2.mood) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= ( SELECT stddev_samp(rat2.staff) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) );");    
+        var query = client.query("Select r.name as rater_name, r.type as rater_type, r.email as rater_email, rst.name, rat.price, rat.food, rat.mood, rat.staff FROM Rater r, Rating rat, Restaurant rst WHERE r.UserID = rat.UserID AND rat.RestaurantID = rst.RestaurantID AND 2 <= ( Select COUNT(*) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) AND (1 <= ( SELECT stddev_samp(rat2.price) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= (SELECT stddev_samp(rat2.food) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= ( SELECT stddev_samp(rat2.mood) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) OR 1 <= ( SELECT stddev_samp(rat2.staff) FROM Rating rat2, Restaurant rst2 WHERE r.UserID = rat2.UserID AND rat2.RestaurantID = rst2.RestaurantID AND rst.RestaurantID = rst2.RestaurantID ) );");    
         
         query.on("row", function (row, result) { 
             result.addRow(row);

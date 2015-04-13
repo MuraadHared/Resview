@@ -1,4 +1,4 @@
-var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'Authentication', 'ngCookies', 'datatables']);
+var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'ngAnimate', 'Authentication', 'ngCookies', 'datatables']);
 restaurantProject.config(['$routeProvider', '$compileProvider', function($routeProvider, $compileProvider) {
     $compileProvider.debugInfoEnabled(false);
     $routeProvider  
@@ -100,8 +100,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                     $scope.restaurantList = data;                                                                                          
                     $route.reload();
                 });                            
-            });                     
-            $route.reload();   
+            });                                 
         }
 
         $scope.deleteRater = function(rater) {            
@@ -110,8 +109,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                     $scope.raterList = data;                                
                     $route.reload();         
                 });
-            });
-           $route.reload();
+            });           
         }
 
         $scope.deleteMenuItem = function(item) {                                    
@@ -120,8 +118,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                     $rootScope.viewRestaurantItems = data; 
                     $route.reload();
                 });                           
-            });                     
-            $route.reload();   
+            });                                 
         }
 
          $scope.addMenuItem = function(item) {            
@@ -130,8 +127,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                     $rootScope.viewRestaurantItems = data; 
                     $route.reload();
                 });                           
-            });                     
-            $route.reload();   
+            });                                 
         }
 
         $scope.getRatings = function(restaurant) {            
@@ -247,21 +243,17 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                 $http.get('/restaurant').success(function(data) {            
                     $scope.restaurantList = data;         
                     $route.reload();
+                    restInfo.nameOfRestaurant = " ";
+                    restInfo.typeOfRestaurant = " ";
+                    restInfo.url = " ";                
                 })
-            });            
-            $scope.xyz = restInfo.nameOfRestaurant;
-            $scope.xyz1 = " has been added to the database!";
-           
-            restInfo.nameOfRestaurant = " ";
-            restInfo.typeOfRestaurant = " ";
-            restInfo.url = " ";    
-            $route.reload();
+            });                        
         }
 
        $scope.insertMenuItem = function(item) {            
             $http.get('/insertMenuItem/' +  $scope.viewRestaurantInfo.restaurantid + '/' + item.nameOfItem + '/' + item.itemType + '/' + item.category + '/' + item.descriptionn + '/' + item.price).success(function(data) {  
                 $http.get('/getMenuItems/' + $scope.viewRestaurantInfo.restaurantid).success(function(data) {                                
-                    $rootScope.viewRestaurantItems = data; 
+                    $rootScope.viewRestaurantItems = data;                     
                     $route.reload();
                 });        
             });
@@ -273,8 +265,7 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
             item.itemType = " ";
             item.category = " ";
             item.descriptionn = " "; 
-            item.price = null;
-            $route.reload();
+            item.price = null;            
         }
 
         $scope.getLocations = function(restaurant) {            
@@ -291,14 +282,19 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
 
         $scope.insertRating = function(rater) {            
              $http.get('/insertRating/' + rater.userid + '/' + rater.restaurantid + '/' + rater.comments + '/' + rater.price + '/' + rater.food + '/' + rater.mood + '/' + rater.staff ).success(function(data) {
-               $route.reload();  
-
+                $http.get('/rating/' + restaurant.restaurantid).success(function(data) {                
+                    $scope.restaurantRatings = data;
+                    $route.reload();
+                });
              });
           }
 
           $scope.insertRatingItem = function(rater) {            
              $http.get('/insertRatingItem/' + rater.userid + '/' + rater.itemid + '/' + rater.rating + '/' + rater.rating_comment ).success(function(data) {
-                 $route.reload(); 
+                $http.get('/getRatingItems' + item.itemid).success(function(data) {                
+                    $scope.ratingItemData = data;
+                    $route.reload();
+                });
              });
           }
 
