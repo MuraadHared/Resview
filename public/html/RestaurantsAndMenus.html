@@ -198,7 +198,7 @@ function showContainer() {
 			    <td>{{ selectedRestaurant.name}}</td>
 			    <td>{{ selectedRestaurant.manager_name}}</td>
 			    <td>{{ selectedRestaurant.street_address}}</td>
-			    <td>{{ selectedRestaurant.open_date}}</td>
+			    <td>{{ selectedRestaurant.open_date | limitTo: 10}}</td>
 			  </tr>
 			</tbody>
 		</table>

@@ -14,7 +14,7 @@
 			<tr>
 				<th>User</th>
 				<th>Type of User</th>
-				<th>Rating Time</th>
+				<th>Rating Date</th>
 				<th>Comments</th>
 				<th>Rating</th>				
 			</tr>
@@ -23,7 +23,7 @@
 			<tr ng-repeat="r in viewItemRatings"> 
 			    <td>{{ r.rater_name }}</td>
 			    <td>{{ r.rater_type }}</td>
-				<td>{{ r.rating_time }}</td>
+				<td>{{ r.rating_time | limitTo: 10}}</td>
 				<td>{{ r.rating_comment }}</td>
 				<td><span stars>{{r.rating}}</span></td>				
 			</tr>

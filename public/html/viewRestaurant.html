@@ -15,7 +15,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="l in locationData"> 
-			    <td>{{ l.open_date }}</td>
+			    <td>{{ l.open_date | limitTo: 10}}</td>
 			    <td>{{ l.manager_name }}</td>
 				<td>{{ l.phone_number }}</td>
 				<td>{{ l.street_address }}</td>
@@ -31,7 +31,7 @@
 			<tr>
 				<th>User</th>
 				<th>Type of User</th>
-				<th>Rating Time</th>
+				<th>Rating Date</th>
 				<th>Comments</th>
 				<th>Price</th>
 				<th>Food</th>
@@ -43,7 +43,7 @@
 			<tr ng-repeat="r in viewRestaurantRatings"> 
 			    <td>{{ r.name }}</td>
 			    <td>{{ r.type }}</td>
-				<td>{{ r.rating_time }}</td>
+				<td>{{ r.rating_time | limitTo: 10}}</td>
 				<td>{{ r.comments }}</td>
 				<td><span stars>{{r.price}}</span></td>
 				<td><span stars>{{r.food }}</span></td>

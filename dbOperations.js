@@ -1,7 +1,7 @@
 // DB access operations
 
 var pg = require('pg');
-var connection = "postgres://postgres:2132@localhost:5432/RestaurantProject";
+var connection = "postgres://postgres:admin@localhost:5432/postgres";
 // req holds all the data that was entered from the view (ex: req.query.firstName)
 // 
 module.exports = {
@@ -365,7 +365,7 @@ module.exports = {
         var client = new pg.Client(connection);
         client.connect();        
         // build query        
-        var query = client.query("DELETE FROM Restaurant WHERE RestaurantID = " + req.params.restaurantid +";"); 
+        var query = client.query("DELETE FROM Restaurant WHERE RestaurantID = " + req.params.RestaurantID +";"); 
 
           query.on("row", function (row, result) { 
             result.addRow(row);
@@ -484,7 +484,7 @@ module.exports = {
   insertRestaurant : function(req, res){        
         var client = new pg.Client(connection);
         client.connect();            
-        var query = client.query("INSERT INTO Restaurant VALUES (DEFAULT, '" + req.params.nameOfRestaurant + "', '" + req.params.typeOfRestaurant + "', '" + req.params.url +"')");    
+        var query = client.query("INSERT INTO Restaurant VALUES (DEFAULT, '" + req.params.nameOfRestaurant + "', '" + req.params.typeOfRestaurant + "', '" + req.params.url +"');");    
         query.on("row", function (row, result) { 
             result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
         });        

@@ -138,10 +138,10 @@ function showContainer() {
 			<tbody>
 			  <tr ng-repeat="a in kData"> 
 			    <td>{{ a.name}}</td>
-			    <td>{{ a.join_date}}</td>
+			    <td>{{ a.join_date | limitTo: 10}}</td>
 			    <td><span stars>{{ a.reputation }}</span></td>
 			    <td>{{ a.restaurant_name }}</td>
-			    <td>{{ a.rating_time }}</td>
+			    <td>{{ a.rating_time | limitTo: 10 }}</td>
 			  </tr>
 			</tbody>
 		</table>
@@ -162,7 +162,7 @@ function showContainer() {
 			    <td>{{ a.name}}</td>
 			    <td><span stars>{{ a.reputation}}</span></td>
 			    <td>{{ a.restaurant_name }}</td>
-			    <td>{{ a.rating_time }}</td>
+			    <td>{{ a.rating_time | limitTo: 10}}</td>
 			  </tr>
 			</tbody>
 		</table>
