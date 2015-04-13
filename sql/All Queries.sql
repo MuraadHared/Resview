@@ -3,13 +3,12 @@
 --a--
 SELECT *
 FROM RESTAURANT R, LOCATION L
-WHERE R.RestaurantID = '' AND R.RestaurantID = L.RestaurantID;
-
+WHERE R.name = '' AND R.RestaurantID = L.RestaurantID;
 
 --b--
 SELECT M.name, M.price
 FROM MenuItem M , RESTAURANT R
-WHERE R.RestaurantID = '' AND M.RestaurantID = R.RestaurantID
+WHERE R.name = '' AND M.RestaurantID = R.RestaurantID
 ORDER BY M.category;
 
 --c--
@@ -21,8 +20,7 @@ WHERE L.RestaurantID = R.RestaurantID AND R.type = 'PARAMETER';
 --D--
 SELECT M.name, M.price, L.manager_name, L.hour_open, l.hour_close, R.url
 FROM LOCATION L , RESTAURANT R, MenuItem M
-WHERE R.RestaurantID='PARAMETER' AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
-
+WHERE R.name='PARAMETER' AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
 M.PRICE >= ALL 
 (
 SELECT M.PRICE
@@ -58,17 +56,19 @@ WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID NOT IN (
 
 
 -- H: TESTED 100%
-SELECT L.open_date , R.name
+SELECT R.name, L.open_date
 FROM Restaurant R, Location L, Rating RT
 WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID = RT.RestaurantID AND RT.staff < (
   SELECT GREATEST (MAX(RT1.staff), MAX(RT1.food), MAX(RT1.price), MAX(RT1.mood))
   FROM Rating RT1, Rater RA 
-  WHERE RT1.UserID = RA.UserID AND RA.name = 'User A');
+  WHERE RT1.UserID = RA.UserID AND RA.name = 'SomeGuy')
+  GROUP BY R.name, L.open_date
+  ORDER BY L.open_date;
 
 
 
 -- I: TESTED 100%
-SELECT R.name, RT.name
+SELECT RT.name AS user_name, R.name AS restaurant_name, RA.food 
 FROM Restaurant R, Rater RT, Rating RA
 WHERE RA.RestaurantID = R.RestaurantID AND RA.UserID = RT.UserID AND R.type = 'type-X' AND RA.food = (  
           SELECT MAX(RA1.food)
@@ -82,11 +82,13 @@ WHERE RA.RestaurantID = R.RestaurantID AND RA.UserID = RT.UserID AND R.type = 't
 SELECT 
   CASE
     WHEN 
-    ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = 'Indian' AND RA.RestaurantID = R.RestaurantID)
- > 
-     (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = 'Indian' AND RA.RestaurantID = R.RestaurantID) 
-
-     THEN 'Type X restaurants are more popular than Type Y restaurants'
+		( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = 'Type X' AND RA.RestaurantID = R.RestaurantID) =
+		(SELECT COUNT(*)  FROM Restaurant R, Rating RA WHERE R.type = 'Type Y' AND RA.RestaurantID = R.RestaurantID) 
+     		THEN 'Type X are JUST AS popular as Type Y restaurants'
+    WHEN
+		( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = 'Type X' AND RA.RestaurantID = R.RestaurantID) >
+		(SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = 'Type Y' AND RA.RestaurantID = R.RestaurantID)
+			THEN 'Type X restaurants are MORE popular as Type Y restaurants'
     ELSE 'Type X restaurants are NOT AS popular as Type Y restaurants'
   END 
   AS popular;

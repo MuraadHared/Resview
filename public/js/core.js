@@ -1,4 +1,5 @@
-var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'ngAnimate', 'Authentication', 'ngCookies', 'datatables']);
+var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'ngAnimate', 'Authentication', 'ngCookies', 'datatables', 'angular-input-stars']);
+
 restaurantProject.config(['$routeProvider', '$compileProvider', function($routeProvider, $compileProvider) {
     $compileProvider.debugInfoEnabled(false);
     $routeProvider  
@@ -32,6 +33,11 @@ restaurantProject.config(['$routeProvider', '$compileProvider', function($routeP
                 controller: 'RestaurantController',
                 templateUrl: 'html/viewRestaurant.html'
             })
+        .when('/viewMenuItem', 
+            {
+                controller: 'RestaurantController',
+                templateUrl: 'html/viewMenuItem.html'
+            })
         .when('/raters', 
             {
                 controller: 'RestaurantController',
@@ -60,6 +66,8 @@ restaurantProject.directive('stars',['$compile', '$timeout', function($compile, 
 restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$http','$location', '$route', function($scope, $rootScope, $http, $location, $route) {        
         // get default data. Restaurants, Raters, RestaurantTypes        
         $http.get('/restaurant').success(function(data) {            
+                $rootScope.rater = {};
+                $rootScope.itemRating = {};
                 $scope.restaurantList = data;                
                 var alreadyAdded = {};
                 var types = [];
@@ -82,16 +90,29 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
                 $scope.raterName = $scope.raterList[0];                
         });
 
+
         $scope.updateViewingRestaurant = function(restaurant) {             
-            $rootScope.viewRestaurantInfo = restaurant;               
+            $rootScope.viewRestaurantInfo = restaurant;                       
+            $scope.resetRatingStars();
             $http.get('/rating/' + restaurant.restaurantid).success(function(data) {                
                 $rootScope.viewRestaurantRatings = data;                                
             });            
             $http.get('/getMenuItems/' + restaurant.restaurantid).success(function(data) {                                
-                $rootScope.viewRestaurantItems = data;                 
-                $location.path('/viewRestaurant');                    
+                $rootScope.viewRestaurantItems = data;                                 
             });            
-            
+            $http.get('/getLocations/' + restaurant.restaurantid).success(function(data) {                                
+                $rootScope.locationData = data;                                            
+            });            
+            $location.path('/viewRestaurant');
+        }
+
+          $scope.updateViewingItem = function(item) {             
+            $rootScope.viewItemInfo = item;                       
+            $scope.resetRatingStars();
+             $http.get('/getRatingItems/' + item.itemid).success(function(data) {                                
+                $rootScope.viewItemRatings = data;
+            });                
+            $location.path('/viewMenuItem');
         }
 
         $scope.deleteRestaurant = function(restaurant) {            
@@ -268,34 +289,37 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
             item.price = null;            
         }
 
-        $scope.getLocations = function(restaurant) {            
-           $http.get('/getLocations' + restaurant.restaurantid).success(function(data) {                
-                $scope.locationData = data;
-            });
-        }
-
         $scope.getRatingItems = function(item) {            
-           $http.get('/getRatingItems' + item.itemid).success(function(data) {                
+           $http.get('/getRatingItems/' + item.itemid).success(function(data) {                
                 $scope.ratingItemData = data;
             });
         }
 
-        $scope.insertRating = function(rater) {            
-             $http.get('/insertRating/' + rater.userid + '/' + rater.restaurantid + '/' + rater.comments + '/' + rater.price + '/' + rater.food + '/' + rater.mood + '/' + rater.staff ).success(function(data) {
-                $http.get('/rating/' + restaurant.restaurantid).success(function(data) {                
-                    $scope.restaurantRatings = data;
+        $scope.insertRating = function(rater) {              
+             $http.get('/insertRating/' + $rootScope.globals.currentUser.userid + '/' + $scope.viewRestaurantInfo.restaurantid + '/' + escape(rater.comments) + '/' + rater.price + '/' + rater.food + '/' + rater.mood + '/' + rater.staff ).success(function(data) {
+                $http.get('/rating/' + $scope.viewRestaurantInfo.restaurantid).success(function(data) {                
+                    $rootScope.viewRestaurantRatings = data;
                     $route.reload();
                 });
              });
           }
 
-          $scope.insertRatingItem = function(rater) {            
-             $http.get('/insertRatingItem/' + rater.userid + '/' + rater.itemid + '/' + rater.rating + '/' + rater.rating_comment ).success(function(data) {
-                $http.get('/getRatingItems' + item.itemid).success(function(data) {                
-                    $scope.ratingItemData = data;
+          $scope.insertRatingItem = function(rater) {          
+            console.log(rater);
+             $http.get('/insertRatingItem/' + $rootScope.globals.currentUser.userid + '/' + $scope.viewItemInfo.itemid + '/' + rater.rating + '/' + escape(rater.comments) ).success(function(data) {
+                $http.get('/getRatingItems/' + $scope.viewItemInfo.itemid).success(function(data) {                
+                    $rootScope.viewItemRatings = data;
                     $route.reload();
                 });
              });
+          }
+
+          $scope.resetRatingStars = function() {
+            $rootScope.itemRating.rating = 1;  
+            $rootScope.rater.price = 1;            
+            $rootScope.rater.food = 1;
+            $rootScope.rater.mood = 1;
+            $rootScope.rater.staff = 1;
           }
 
 }]);

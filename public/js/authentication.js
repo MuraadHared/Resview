@@ -5,9 +5,9 @@ auth.controller('LoginController',
         AuthenticationService.ClearCredentials();
         $scope.login = function () {
             $scope.dataLoading = true;
-            AuthenticationService.Login($scope.username, $scope.password, function(response) {                
-                if(response === 1) {
-                    AuthenticationService.SetCredentials($scope.username, $scope.password);
+            AuthenticationService.Login($scope.username, $scope.password, function(response) {                        
+                if(response.success === 1) {                                        
+                    AuthenticationService.SetCredentials($scope.username, $scope.password, response.info.userid);
                     $location.path('/home');    
                     $("#mainLoginButton").hide();
                     $("#mainRegisterButton").hide();
@@ -34,18 +34,19 @@ auth.factory('AuthenticationService',
         var service = {};
  
         service.Login = function (username, password, callback) {         
-             $http.get('/login/'+ username + "/" + password).success(function (response) {
+             $http.get('/login/'+ username + "/" + password).success(function (response) {                
                     callback(response);
                 }); 
         };
   
-        service.SetCredentials = function (username, password) {
+        service.SetCredentials = function (username, password, userid) {
             var authdata = Base64.encode(username + ':' + password);
   
             $rootScope.globals = {
                 currentUser: {
                     username: username,
-                    authdata: authdata
+                    authdata: authdata,
+                    userid: userid
                 }
 
             };

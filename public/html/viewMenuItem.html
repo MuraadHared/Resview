@@ -1,0 +1,42 @@
+<div class="container">
+	<h3 class="divcenter bottommargin font-body" style="font-size: 40px;">Viewing: {{viewItemInfo.name}} @ {{viewRestaurantInfo.name}}</h3>
+	<br>
+	<div style="text-align:left;">
+		<p><strong>Type:</strong> {{viewItemInfo.type}}</p>
+		<p><strong>Category:</strong> {{viewItemInfo.category}}</p>
+		<p><strong>Description:</strong> {{viewItemInfo.description}}</p>
+		<p><strong>Price:</strong> {{viewItemInfo.price}}</p>		
+	</div>
+
+	<h2 class="divcenter bottommargin font-body" style="font-size: 40px;">Ratings</h2>
+	<table datatable="ng">
+		<thead>
+			<tr>
+				<th>User</th>
+				<th>Type of User</th>
+				<th>Rating Time</th>
+				<th>Comments</th>
+				<th>Rating</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in viewItemRatings"> 
+			    <td>{{ r.rater_name }}</td>
+			    <td>{{ r.rater_type }}</td>
+				<td>{{ r.rating_time }}</td>
+				<td>{{ r.rating_comment }}</td>
+				<td><span stars>{{r.rating}}</span></td>				
+			</tr>
+		</tbody>
+	</table>
+<br>
+<br>
+	<h2 class="divcenter font-body" style="font-size: 40px;" >Rate this menu item!</h2>
+	<form novalidate class="css-form" name="itemRatingForm">  		  		
+  		Rating: <input-stars max="5" ng-model="itemRating.rating" required></input-stars><br>  		
+  		<textarea type="text" ng-model="itemRating.comments" class="form-control input-lg not-dark required center" placeholder="Comments" style="margin: 0 auto; width:500px; height:100px;" required></textarea><br>
+  		<input type="submit" ng-disabled="itemRatingForm.$invalid" ng-click="insertRatingItem(itemRating)" value="Rate!" />
+	</form>
+	<br>
+	<br>
+</div>

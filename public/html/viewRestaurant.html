@@ -1,6 +1,30 @@
 <div class="container">
 	<h3 class="divcenter bottommargin font-body" style="font-size: 40px;">Viewing: {{viewRestaurantInfo.name}}</h3>
 	<br>
+	<h2 lass="divcenter bottommargin font-body" style="font-size: 40px;">Locations</h2>
+	<table datatable="ng">
+		<thead>
+			<tr>
+				<th>Open Date</th>
+				<th>Manager Name</th>
+				<th>Phone Number</th>
+				<th>Street Address</th>
+				<th>Opens</th>
+				<th>Closes</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="l in locationData"> 
+			    <td>{{ l.open_date }}</td>
+			    <td>{{ l.manager_name }}</td>
+				<td>{{ l.phone_number }}</td>
+				<td>{{ l.street_address }}</td>
+				<td>{{ l.hour_open }}</td>
+				<td>{{ l.hour_close }}</td>				
+			</tr>
+		</tbody>
+	</table>
+
 	<h2 lass="divcenter bottommargin font-body" style="font-size: 40px;">Ratings</h2>
 	<table datatable="ng">
 		<thead>
@@ -22,12 +46,26 @@
 				<td>{{ r.rating_time }}</td>
 				<td>{{ r.comments }}</td>
 				<td><span stars>{{r.price}}</span></td>
-				<td><span stars>{{::r.food }}</span></td>
-				<td><span stars>{{::r.mood }}</span></td>
-				<td><span stars>{{::r.staff }}</span></td>		   
+				<td><span stars>{{r.food }}</span></td>
+				<td><span stars>{{r.mood }}</span></td>
+				<td><span stars>{{r.staff }}</span></td>		   
 			</tr>
 		</tbody>
 	</table>
+<br>
+<br>
+	<h2 class="divcenter font-body" style="font-size: 40px;" >Rate this restaurant!</h2>
+	<form novalidate class="css-form" name="ratingForm">
+  		  		
+  		Price: <input-stars max="5" ng-model="rater.price" required></input-stars><br>
+  		Food: <input-stars max="5" ng-model="rater.food" required></input-stars><br>
+  		Mood: <input-stars max="5" ng-model="rater.mood" required></input-stars><br>
+  		Staff: <input-stars max="5" ng-model="rater.staff" required></input-stars><br>
+  		<textarea type="text" ng-model="rater.comments" class="form-control input-lg not-dark required center" placeholder="Comments" style="margin: 0 auto; width:500px; height:100px;" required></textarea><br>
+  		<input type="submit" ng-disabled="ratingForm.$invalid" ng-click="insertRating(rater)" value="Rate!" />
+	</form>
+	<br>
+	<br>
 
 	<h2 class="divcenter bottommargin font-body" style="font-size: 40px;">Menu Items</h2>
 		<table datatable="ng">
@@ -46,9 +84,9 @@
 			    <td>{{ r.name }}</td>
 			    <td>{{ r.type }}</td>
 				<td>{{ r.category }}</td>			
-				<td>{{ r.description }}</td>
-			    <td>{{ r.price }}</td>		
-			    <td><button ng-click="deleteMenuItem(r)">Delete</button></td>
+				<td style="max-width:200px;">{{ r.description }}</td>
+			    <td>{{ r.price }}</td>					    
+			    <td><button ng-click="updateViewingItem(r)" style="margin-right:0.5em;">View</button><button ng-click="deleteMenuItem(r)">Delete</button></td>
 			</tr>
 		</tbody>
 		</table>

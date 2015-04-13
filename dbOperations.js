@@ -56,12 +56,13 @@ module.exports = {
         // once query has obtained all rows, decide what to do with result variable
         query.on("end", function (result) {                      
             client.end(); // disconnect client            
+            var obj = {success:result.rows.length, info: result.rows[0]};
             res.writeHead(200, {'Content-Type': 'application/json'}); // prepare result for view (response header)
-            res.write(JSON.stringify(result.rows.length, null, "    ") + "\n"); // write the response
+            res.write(JSON.stringify(obj, null, "    ") + "\n"); // write the response
             res.end();  // send content of response to the client and signal the server that the response has been sent
         });
   },
-    f: function(req, res) {            
+  f: function(req, res) {            
         var client = new pg.Client(connection);
         client.connect();
 
@@ -104,7 +105,7 @@ module.exports = {
         client.connect();
 
         // build query
-        var query = client.query("SELECT L.open_date , R.name FROM Restaurant R, Location L, Rating RT WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID = RT.RestaurantID AND RT.staff < ( SELECT GREATEST (MAX(RT1.staff), MAX(RT1.food), MAX(RT1.price), MAX(RT1.mood)) FROM Rating RT1, Rater RA WHERE RT1.UserID = RA.UserID AND RA.UserID = '"+ req.params.id+"')");
+        var query = client.query("SELECT R.name, L.open_date FROM Restaurant R, Location L, Rating RT WHERE L.RestaurantID = R.RestaurantID AND R.RestaurantID = RT.RestaurantID AND RT.staff < ( SELECT GREATEST (MAX(RT1.staff), MAX(RT1.food), MAX(RT1.price), MAX(RT1.mood)) FROM Rating RT1, Rater RA WHERE RT1.UserID = RA.UserID AND RA.UserID = '"+ req.params.id+"') GROUP BY R.name, L.open_date ORDER BY L.open_date");
 
         // add rows obtained from query to result
         query.on("row", function (row, result) { 
@@ -123,7 +124,7 @@ module.exports = {
         client.connect();
 
         // build query
-        var query = client.query("SELECT RT.name AS restaurant_name, R.name AS user_name FROM Restaurant R, Rater RT, Rating RA WHERE RA.RestaurantID = R.RestaurantID AND RA.UserID = RT.UserID AND R.type = '" + req.params.type + "' AND RA.food = (SELECT MAX(RA1.food) FROM Restaurant R1, Rater RT1, Rating RA1 WHERE RA1.RestaurantID = R1.RestaurantID AND R1.type = '" + req.params.type +"')");
+        var query = client.query("SELECT RA.food, RT.name AS user_name, R.name AS restaurant_name FROM Restaurant R, Rater RT, Rating RA WHERE RA.RestaurantID = R.RestaurantID AND RA.UserID = RT.UserID AND R.type = '" + req.params.type + "' AND RA.food = (SELECT MAX(RA1.food) FROM Restaurant R1, Rater RT1, Rating RA1 WHERE RA1.RestaurantID = R1.RestaurantID AND R1.type = '" + req.params.type +"')");
 
         // add rows obtained from query to result
         query.on("row", function (row, result) { 
@@ -140,10 +141,10 @@ module.exports = {
   j: function(req, res) {            
         var client = new pg.Client(connection);
         client.connect();
-
+    
         // build query
-        var query = client.query("SELECT CASE WHEN ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularX + "' AND RA.RestaurantID = R.RestaurantID) >  (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularY + "' AND RA.RestaurantID = R.RestaurantID)  THEN '"+ req.params.morePopularX + " restaurants are more popular than " + req.params.morePopularY + " restaurants' ELSE '"+ req.params.morePopularX + " restaurants are NOT AS popular as "+ req.params.morePopularY + " restaurants' END AS popular");
-
+        
+        var query = client.query("SELECT CASE WHEN ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularX + "' AND RA.RestaurantID = R.RestaurantID) = (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularY + "' AND RA.RestaurantID = R.RestaurantID)  THEN '"+ req.params.morePopularX + " restaurants are JUST AS popular as "+ req.params.morePopularY + " restaurants' WHEN ( SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularX + "' AND RA.RestaurantID = R.RestaurantID) > (SELECT COUNT(*) FROM Restaurant R, Rating RA WHERE R.type = '"+ req.params.morePopularY + "' AND RA.RestaurantID = R.RestaurantID) THEN '"+ req.params.morePopularX + " restaurants are MORE popular than  "+ req.params.morePopularY + " restaurants' ELSE '"+ req.params.morePopularX + " restaurants are NOT AS popular as "+ req.params.morePopularY + " restaurants' END AS popular");
         // add rows obtained from query to result
         query.on("row", function (row, result) { 
             result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
@@ -363,9 +364,19 @@ module.exports = {
     deleteRestaurant: function(req, res) {
         var client = new pg.Client(connection);
         client.connect();        
-        // build query
-        var query = client.query("DELETE FROM Restaurant WHERE RestaurantID = '" + req.params.RestaurantID +"';"); 
+        // build query        
+        var query = client.query("DELETE FROM Restaurant WHERE RestaurantID = " + req.params.restaurantid +";"); 
 
+          query.on("row", function (row, result) { 
+            result.addRow(row);
+        });      
+
+        query.on("end", function (result) {            
+            client.end();
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n");            
+            res.end();
+        });
         
   },
 
@@ -373,7 +384,18 @@ module.exports = {
         var client = new pg.Client(connection);
         client.connect();        
         // build query
-        var query = client.query("DELETE FROM Rater WHERE UserID = '" + req.params.UserID + "';"); 
+        var query = client.query("DELETE FROM Rater WHERE UserID = " + req.params.UserID + ";"); 
+
+          query.on("row", function (row, result) { 
+            result.addRow(row);
+        });      
+
+        query.on("end", function (result) {            
+            client.end();
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n");            
+            res.end();
+        });
 
   },
 
@@ -527,8 +549,7 @@ insertMenuItem : function(req, res){
             ('00' + date.getUTCDate()).slice(-2) + ' ' +
             ('00' + date.getUTCHours()).slice(-2) + ':' +
             ('00' + date.getUTCMinutes()).slice(-2) + ':' +
-            ('00' + date.getUTCSeconds()).slice(-2); 
-
+            ('00' + date.getUTCSeconds()).slice(-2);             
         var query = client.query("INSERT INTO RatingItem VALUES ("+ req.params.UserID+ ", " + req.params.ItemID + ",'" + date + "', " + req.params.rating + " , '" + req.params.rating_comment + "')");   
         
         query.on("row", function (row, result) { 
@@ -546,7 +567,7 @@ insertMenuItem : function(req, res){
     getRatingItems : function(req, res){        
         var client = new pg.Client(connection);
         client.connect();                                                                 
-        var query = client.query("Select * From RatingItem Where ItemID=" + req.params.ItemID + ";");   
+        var query = client.query("Select ri.rating_time, ri.rating_comment, ri.rating, r.name as rater_name, r.type as rater_type From RatingItem ri, Rater r Where ItemID=" + req.params.ItemID + " AND ri.UserID = r.UserID;");   
         query.on("row", function (row, result) { 
             result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
         });        

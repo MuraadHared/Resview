@@ -23,10 +23,6 @@ app.get('/restaurant', function(req,res){
     dbOperations.getRestaurants(req,res);    
 });
 
-app.get('/deleteRestaurant/:restaurantid', function(req,res){   
-    dbOperations.deleteRestaurant(req,res);    
-});
-
 app.get('/rating/:restaurantid', function(req,res){ 
     dbOperations.getRatings(req,res);    
 });

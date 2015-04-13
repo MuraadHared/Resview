@@ -19,15 +19,15 @@ span.stars span {
 }
 
 .ng-enter, .ng-move{
-	-webkit-animation: fadeIn 1s;
-	-moz-animation: fadeIn 1s;
-	-o-animation: fadeIn 1s;
-	animation: fadeIn 1s;
+	-webkit-animation: fadeIn 0.2s;
+	-moz-animation: fadeIn 0.2s;
+	-o-animation: fadeIn 0.2s;
+	animation: fadeIn 0.2s;
 }
 
 .ng-leave{
-	-webkit-animation: fadeOut 1s;
-	-moz-animation: fadeOut 1s;
-	-o-animation: fadeOut 1s;
-	animation: fadeOut 1s;
+	-webkit-animation: fadeOut 0.2s;
+	-moz-animation: fadeOut 0.2s;
+	-o-animation: fadeOut 0.2s;
+	animation: fadeOut 0.2s;
 }

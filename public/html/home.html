@@ -51,7 +51,7 @@
 			    <td>{{ r.name }}</td>
 			    <td>{{ r.email }}</td>
 			    <td>{{ r.type }}</td>
-			    <td>{{ r.join_date }}</td>
+			    <td>{{ r.join_date  | limitTo: 10 }}</td>
 			    <td>{{ r.reputation }}</td>			    
 			    <td><button ng-click="deleteRater(r)">Delete</button></td>
 			  </tr>
