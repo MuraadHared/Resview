@@ -1,8 +1,9 @@
 
 <head>
 <style>
+
 .container {
-    width: 600px;
+    width: 1000px;
     margin: 40px auto;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
     font-size: 14px;
@@ -12,6 +13,7 @@
 .queryContainer, .queryDropdown {
 	display:none;
 }
+
 table {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
@@ -154,7 +156,6 @@ function showContainer() {
 			    <td>{{ selectedRestaurant.name}}</td>
 			    <td>{{ selectedRestaurant.type }}</td>
 			    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
-
 			    <td>{{ selectedRestaurant.locationid }}</td>
 		    	<td>{{ selectedRestaurant.open_date }}</td>
 		    	<td>{{ selectedRestaurant.manager_name }}</td>
