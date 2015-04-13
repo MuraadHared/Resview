@@ -3,35 +3,37 @@
 --a--
 SELECT *
 FROM RESTAURANT R, LOCATION L
-WHERE R.name = "" AND R.RestaurantID = L.RestaurantID;
+WHERE R.name = '' AND R.RestaurantID = L.RestaurantID;
 
 --b--
 SELECT M.name, M.price
 FROM MenuItem M , RESTAURANT R
-WHERE R.name = "" AND M.RestaurantID = R.RestaurantID;
+WHERE R.name = '' AND M.RestaurantID = R.RestaurantID
 ORDER BY M.category;
 
 --c--
 
-SELECT L.manager_name, L.open_date
+SELECT R.name, L.manager_name, L.street_address, L.open_date
 FROM LOCATION L, RESTAURANT R
-WHERE L.RestaurantID = R.RestaurantID AND R.type = "PARAMETER";
+WHERE L.RestaurantID = R.RestaurantID AND R.type = 'PARAMETER';
 
 --D--
-SELECT M.name, L.manager_name, L.hour_open, l.hour_close, R.url
+SELECT M.name, M.price, L.manager_name, L.hour_open, l.hour_close, R.url
 FROM LOCATION L , RESTAURANT R, MenuItem M
-WHERE R.name="PARAMETER" AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
+WHERE R.name='PARAMETER' AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
 M.PRICE >= ALL 
 (
 SELECT M.PRICE
-FROM MenuItem M; );
+FROM MenuItem M
+WHERE M.RestaurantID = R.RestaurantID );
 
 
---E ***NEEDS TESTING*--
-SELECT R.type, M.category, AVG(M.price) AS Average_Price
+--E --
+SELECT R.type, M.category, round(AVG(M.price), 2) AS Average_Price
 FROM RESTAURANT R, MenuItem M
 WHERE M.RestaurantID = R.RestaurantID
-GROUP BY M.category, R.type;
+GROUP BY M.category, R.type
+ORDER BY R.type;
 
 
 -- F: TESTED 100%
@@ -232,3 +234,18 @@ AND (1 <= (
 	AND rst.RestaurantID = rst2.RestaurantID
 	) 
 );
+
+--Deleting a Restaurant -- 
+
+DELETE FROM Restaurant
+WHERE name = '';
+
+--Deleting a Rater -- 
+
+DELETE FROM Rater
+WHERE UserID = '';
+
+--Deleting a MenuItem -- 
+
+DELETE FROM MenuItem
+WHERE name = '';

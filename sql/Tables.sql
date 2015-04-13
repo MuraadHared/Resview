@@ -37,7 +37,8 @@ CREATE TABLE Rater
 (	
 	UserID serial PRIMARY KEY,
 	email varchar (100),
-	name varchar (15), 	
+	password varchar (100),
+	name varchar (15), 
 	join_date date,
 	type varchar(15),
 	reputation numeric(2,1) CHECK(reputation >=1 AND reputation <=5) DEFAULT 1
@@ -67,8 +68,5 @@ CREATE TABLE RatingItem
 	rating_comment text,
 	PRIMARY KEY (UserID, rating_time, ItemID),
 	FOREIGN KEY (UserID) REFERENCES Rater ON DELETE CASCADE,	
-	FOREIGN KEY (ItemID) REFERENCES MenuItem	
+	FOREIGN KEY (ItemID) REFERENCES MenuItem ON DELETE CASCADE
 );
-
-
-		

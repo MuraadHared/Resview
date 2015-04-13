@@ -1,5 +1,67 @@
 <div class="container">
+	<h3 class="divcenter bottommargin font-body" style="font-size: 40px;">Restaurants</h3>
+	<br>
+	<table ng-table="restaurantsTable" datatable="ng">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>URL</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="rest in restaurantList"> 
+			    <td>{{ rest.name}}</td>
+			    <td>{{ rest.type}}</td>
+			    <td>{{ rest.url}}</td>
+			    <td><button ng-click="updateViewingRestaurant(rest)" style="margin-right:0.5em;">View</button><button ng-click="deleteRestaurant(rest)">Delete</button></td>
+			  </tr>
+		</tbody>
+	</table>
+<h3 class="divcenter bottommargin font-body" style="font-size: 40px;">Add a Restaurant</h3>
+  <form novalidate class="css-form" name="restaurantForm">  
+  	<input type="text" ng-model="restInfo.nameOfRestaurant" class="form-control input-lg not-dark required center" placeholder="Restaurant Name" style="margin: 0 auto; width:500px;" required><br>
+  	<select ng-model="restInfo.typeOfRestaurant" id="categoryDropdown" class="form-control input-lg not-dark required center" style="margin: 0 auto; width:500px; margin-bottom:30px;" class="queryDropdown">
+            <option value='' disabled selected>Select Type of Restaurant</option>
+            <option data-ng-repeat="t in types | orderBy:'t'">{{t}}</option>
+    </select>
+  	<input type="text" ng-model="restInfo.url"class="form-control input-lg not-dark required center" placeholder="URL" style="margin: 0 auto; width:500px;margin-bottom:30px;"  required>  
+  	<input type="submit" ng-disabled="restaurantForm.$invalid" ng-click="insertRestaurant(restInfo);" value="Insert Restaurant!" />
+  </form>
 
-<h3 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">Restaurants</h3>
-<h3 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">Rate</h3>
+
+	<p> <span style = "color:restaurantDropdown"> {{xyz}} </span> {{xyz1}} </p> 
+    <br />
+
+
+
+ <form novalidate class="css-form">
+
+	<br>
+	<h3 class="divcenter bottommargin font-body" style="font-size: 40px;">Raters</h3>
+	<br>
+	<table ng-table="ratersTable" datatable="ng">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Type</th>
+				<th>Join Date</th>
+				<th>Reputation</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in raterList"> 
+			    <td>{{ r.name }}</td>
+			    <td>{{ r.email }}</td>
+			    <td>{{ r.type }}</td>
+			    <td>{{ r.join_date }}</td>
+			    <td>{{ r.reputation }}</td>			    
+			    <td><button ng-click="deleteRater(r)">Delete</button></td>
+			  </tr>
+		</tbody>
+	</table>
+
 </div>

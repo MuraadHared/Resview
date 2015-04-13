@@ -10,6 +10,7 @@ auth.controller('LoginController',
                     AuthenticationService.SetCredentials($scope.username, $scope.password);
                     $location.path('/home');    
                     $("#mainLoginButton").hide();
+                    $("#mainRegisterButton").hide();
                 } else {
                     $scope.error = response.message;
                     $scope.dataLoading = false;
@@ -20,6 +21,8 @@ auth.controller('LoginController',
         $rootScope.logout = function () {
             $scope.dataLoading = false;
             AuthenticationService.ClearCredentials();            
+            $("#mainLoginButton").show();
+            $("#mainRegisterButton").show();
             $location.path('/login');    
         };
     }]);

@@ -1,0 +1,226 @@
+
+<head>
+<style>
+.container {
+    width: 600px;
+    margin: 40px auto;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    font-size: 14px;
+    color: #444;
+}
+
+.queryContainer, .queryDropdown {
+	display:none;
+}
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+.bordered tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.bordered td, .bordered th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+.bordered th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+.bordered th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+</style>
+<script>
+$(document).ready(function() {
+
+	$('#selectQueries1').change(function(e){
+		var q = $(this).val();
+		$('.queryDropdown').hide();		
+		if (q === 'M') {
+			$('#restaurantDropdown').show();			
+		}		
+	});
+})
+
+function showContainer() {	
+	$('.queryContainer').hide();
+	var q = $('#selectQueries1').val();
+	$('#containerForQuery'+q).show();
+}
+</script>
+</head>
+<div class="container">
+<h2 class="divcenter bottommargin font-body" style="max-width: 700px; font-size: 40px;">What kind of information do you wish to see?</h2>
+	<br>
+	<select id="selectQueries1" data-ng-model="selectedQuery">
+		<option value='' disabled selected>Select information that you wish to display</option>
+		<option value='K'>K</option>
+		<option value='L'>L</option>
+		<option value='M'>M</option>
+		<option value='N'>N</option>
+		<option value='O'>O</option>
+	</select>
+	<button id="query-button" ng-click="redirectToQuery(selectedQuery);" onclick="showContainer();"> Go! </button>
+
+	<select ng-model="restaurant" ng-options="rest.name for rest in restaurantList track by rest.restaurantid |orderBy:'name'" 
+	id="restaurantDropdown" class="queryDropdown">
+	</select>
+<br>
+<br>
+	<div id="containerForQueryK" class="queryContainer">
+		<table>
+			<thead>
+			    <tr>
+				    <th>Rater Name</th>
+				    <th>Join Date</th>
+				    <th>Reputation</th>
+					<th>Restaurant Name</th>
+					<th>Date</th>
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="a in kData"> 
+			    <td>{{ a.name}}</td>
+			    <td>{{ a.join_date}}</td>
+			    <td>{{ a.reputation }}</td>
+			    <td>{{ a.restaurant_name }}</td>
+			    <td>{{ a.rating_time }}</td>
+			  </tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="containerForQueryL" class="queryContainer">
+		<table>
+			<thead>
+			    <tr>
+				    <th>Rater Name</th>
+				    <th>Reputation</th>
+				    <th>Restaurant Name</th>
+					<th>Date</th>
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="a in lData"> 
+			    <td>{{ a.name}}</td>
+			    <td>{{ a.reputation}}</td>
+			    <td>{{ a.restaurant_name }}</td>
+			    <td>{{ a.rating_time }}</td>
+			  </tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="containerForQueryM" class="queryContainer">
+		<table>
+			<thead>
+			    <tr>
+				    <th>Rater Name</th>
+				    <th>Reputation</th>
+				    <th>Comments</th>
+					<th>Menu Item Name</th>
+					<th>Price</th>
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="a in mData"> 
+			    <td>{{ a.name}}</td>
+			    <td>{{ a.reputation}}</td>
+			    <td>{{ a.comments }}</td>
+			    <td>{{ a.item_name }}</td>
+			    <td>{{ a.price }}</td>			    
+			  </tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="containerForQueryN" class="queryContainer">
+		<table>
+			<thead>
+			    <tr>
+				    <th>Name</th>
+				    <th>Email</th>				    
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="a in nData"> 
+			    <td>{{ a.name}}</td>
+			    <td>{{ a.email}}</td>			    
+			  </tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="containerForQueryO" class="queryContainer">
+		<table>
+			<thead>
+			    <tr>
+				    <th>Name</th>
+				    <th>Type</th>
+				    <th>Email</th>					
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="a in oData"> 			   
+			    <td>{{ a.name}}</td>
+			    <td>{{ a.type }}</td>
+			    <td>{{ a.email }}</td>			    
+			  </tr>
+			</tbody>
+		</table>
+	</div>
+</div>
