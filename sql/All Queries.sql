@@ -198,7 +198,7 @@ WHERE NOT EXISTS (
 );
 
 /**o**/
-Select r.name, r.type, r.email, rst.name, rat.price, rat.food, rat.mood, rat.staff
+Select r.name as rater_name, r.type, r.email, rst.name, rat.price, rat.food, rat.mood, rat.staff
 FROM Rater r, Rating rat, Restaurant rst
 WHERE r.UserID = rat.UserID
 AND rat.RestaurantID = rst.RestaurantID
