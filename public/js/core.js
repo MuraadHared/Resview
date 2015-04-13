@@ -260,7 +260,8 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
 
 
        $scope.insertRestaurant = function(restInfo) {            
-            $http.get('/insertRestaurant/' + restInfo.nameOfRestaurant + '/' + restInfo.typeOfRestaurant + '/' + restInfo.url).success(function(data) {                
+            var uri = encodeURIComponent(restInfo.url);
+            $http.get('/insertRestaurant/' + restInfo.nameOfRestaurant + '/' + restInfo.typeOfRestaurant + '/' +  uri).success(function(data) {                
                 $http.get('/restaurant').success(function(data) {            
                     $scope.restaurantList = data;         
                     $route.reload();
