@@ -1,7 +1,7 @@
 // DB access operations
 
 var pg = require('pg');
-var connection = "postgres://postgres:2132@localhost:5432/RestaurantProject";
+var connection = "postgres://postgres:admin@localhost:5432/postgres";
 // req holds all the data that was entered from the view (ex: req.query.firstName)
 // 
 module.exports = {
@@ -179,7 +179,8 @@ module.exports = {
     selectRestaurant : function(req, res){        
         var client = new pg.Client(connection);
         client.connect();                
-        var query = client.query("SELECT * FROM RESTAURANT R where R.RestaurantID = " + req.params.id);    
+        var query = client.query("SELECT * FROM RESTAURANT R , LOCATION L where R.RestaurantID = " + req.params.id + " AND L.RestaurantID = R.RestaurantID");    
+
 
         query.on("row", function (row, result) { 
             result.addRow(row);
@@ -233,9 +234,10 @@ module.exports = {
     expensiveMenuItem : function(req, res){        
         var client = new pg.Client(connection);
         client.connect();                
-        var query = client.query("SELECT M.name, L.manager_name, L.hour_open, l.hour_close, R.url FROM LOCATION L , RESTAURANT R, MenuItem M WHERE R.RestaurantID = "+ req.params.id +" AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND M.price >= ALL ( SELECT M.price FROM MenuItem M )");    
 
-        query.on("row", function (row, result) { 
+        var query = client.query("SELECT M.name, M.price, L.manager_name, L.hour_open, l.hour_close, R.url FROM LOCATION L , RESTAURANT R, MenuItem M WHERE R.RestaurantID = "+ req.params.id +" AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND M.price >= ALL ( SELECT M.price FROM MenuItem M where R.RestaurantID = M.RestaurantID)");    
+   
+       query.on("row", function (row, result) { 
             result.addRow(row);
         });      
 
@@ -251,7 +253,9 @@ module.exports = {
     averagePrices : function(req, res){        
         var client = new pg.Client(connection);
         client.connect();        
-        var query = client.query("SELECT R.type, M.category, AVG(M.price) AS Average_Price FROM RESTAURANT R, MenuItem M WHERE M.RestaurantID = R.RestaurantID GROUP BY M.category, R.type ORDER BY R.type");    
+
+        var query = client.query("SELECT R.type, M.category, round(AVG(M.price),2) AS Average_Price FROM RESTAURANT R, MenuItem M WHERE M.RestaurantID = R.RestaurantID GROUP BY M.category, R.type ORDER BY R.type");    
+
 
         query.on("row", function (row, result) { 
             result.addRow(row);

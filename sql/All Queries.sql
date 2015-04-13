@@ -3,12 +3,13 @@
 --a--
 SELECT *
 FROM RESTAURANT R, LOCATION L
-WHERE R.name = '' AND R.RestaurantID = L.RestaurantID;
+WHERE R.RestaurantID = '' AND R.RestaurantID = L.RestaurantID;
+
 
 --b--
 SELECT M.name, M.price
 FROM MenuItem M , RESTAURANT R
-WHERE R.name = '' AND M.RestaurantID = R.RestaurantID
+WHERE R.RestaurantID = '' AND M.RestaurantID = R.RestaurantID
 ORDER BY M.category;
 
 --c--
@@ -20,7 +21,8 @@ WHERE L.RestaurantID = R.RestaurantID AND R.type = 'PARAMETER';
 --D--
 SELECT M.name, M.price, L.manager_name, L.hour_open, l.hour_close, R.url
 FROM LOCATION L , RESTAURANT R, MenuItem M
-WHERE R.name='PARAMETER' AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
+WHERE R.RestaurantID='PARAMETER' AND R.RestaurantID=M.RestaurantID AND  L.RestaurantID=R.RestaurantID AND
+
 M.PRICE >= ALL 
 (
 SELECT M.PRICE
