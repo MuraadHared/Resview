@@ -148,10 +148,11 @@ function showContainer() {
         </select>
     <br>
     <br>
-
+    <br>
+    <br>
     
     <div id="containerForQueryF" class="queryContainer">
-        <table>        
+        <table datatable="ng">        
             <tr ng-repeat="result in frestaurantQuery">
                 <td>{{ result.user_name }}</td>
                 <td>{{ result.restaurant_name }}</td>
@@ -161,7 +162,7 @@ function showContainer() {
     </div>
 
     <div id="containerForQueryG" class="queryContainer">
-        <table>
+        <table datatable="ng">
           <tr ng-repeat="result1 in grestaurantQuery">
             <td>{{ result1.name }}</td>
             <td>{{ result1.type }}</td>
@@ -171,7 +172,7 @@ function showContainer() {
     </div>
 
     <div id="containerForQueryH" class="queryContainer">
-        <table>
+        <table datatable="ng">
           <tr ng-repeat="result2 in hrestaurantQuery">
             <td>{{ result2.open_date }}</td>
             <td>{{ result2.name }}</td>
@@ -181,7 +182,7 @@ function showContainer() {
 
 
     <div id="containerForQueryI" class="queryContainer">
-        <table>
+        <table datatable="ng">
           <tr ng-repeat="result3 in irestaurantQuery">
             <td>{{ result3.restaurant_name }}</td>
             <td>{{ result3.user_name }}</td>
@@ -190,7 +191,7 @@ function showContainer() {
     </div>
 
     <div id="containerForQueryJ" class="queryContainer">
-        <table>
+        <table datatable="ng">
           <tr ng-repeat="result4 in jrestaurantQuery">
             <td>{{ result4.popular }}</td>
             </tr>

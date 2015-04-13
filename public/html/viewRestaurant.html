@@ -21,10 +21,10 @@
 			    <td>{{ r.type }}</td>
 				<td>{{ r.rating_time }}</td>
 				<td>{{ r.comments }}</td>
-				<td>{{ r.price }}</td>
-				<td>{{ r.food }}</td>
-				<td>{{ r.mood }}</td>
-				<td>{{ r.staff }}</td>		   
+				<td><span stars>{{r.price}}</span></td>
+				<td><span stars>{{::r.food }}</span></td>
+				<td><span stars>{{::r.mood }}</span></td>
+				<td><span stars>{{::r.staff }}</span></td>		   
 			</tr>
 		</tbody>
 	</table>

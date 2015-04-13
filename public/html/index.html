@@ -35,6 +35,22 @@
 	<!-- External JavaScripts
 	============================================= -->
 	<script type="text/javascript" src="./js/jquery.js"></script>
+	 <script>
+	    $.fn.stars = function() {
+		    return $(this).each(function() {	    	
+		        // Get the value
+		        console.log($(this).html());
+		        var val = parseFloat($(this).html());
+		        console.log(val);
+		        // Make sure that the value is in 0 - 5 range, multiply to get width
+		        var size = Math.max(0, (Math.min(5, val))) * 16;	       
+		        // Create stars holder
+		        var $span = $('<span />').width(size);
+		        // Replace the numerical value with stars
+		        $(this).html($span);
+		    });
+		}
+    </script>		
 	<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="./js/plugins.js"></script>
 	<script type="text/javascript" src="./js/angular.js"></script>	
@@ -43,7 +59,6 @@
     <script type="text/javascript" src="./js/angular-datatables.min.js"></script>
     <script type="text/javascript" src="./js/authentication.js"></script>     
     <script type="text/javascript" src="./js/core.js"></script>        
-
 	<!-- Document Title
 	============================================= -->
 	<title>Reviewify</title>

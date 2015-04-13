@@ -121,8 +121,10 @@ function showContainer() {
 	</select>
 <br>
 <br>
-	<div id="containerForQueryK" class="queryContainer">
-		<table>
+<br>
+<br>
+	<div id="containerForQueryK" class="queryContainer" >
+		<table datatable="ng">
 			<thead>
 			    <tr>
 				    <th>Rater Name</th>
@@ -136,7 +138,7 @@ function showContainer() {
 			  <tr ng-repeat="a in kData"> 
 			    <td>{{ a.name}}</td>
 			    <td>{{ a.join_date}}</td>
-			    <td>{{ a.reputation }}</td>
+			    <td><span stars>{{ a.reputation }}</span></td>
 			    <td>{{ a.restaurant_name }}</td>
 			    <td>{{ a.rating_time }}</td>
 			  </tr>
@@ -145,7 +147,7 @@ function showContainer() {
 	</div>
 
 	<div id="containerForQueryL" class="queryContainer">
-		<table>
+		<table datatable="ng">
 			<thead>
 			    <tr>
 				    <th>Rater Name</th>
@@ -157,7 +159,7 @@ function showContainer() {
 			<tbody>
 			  <tr ng-repeat="a in lData"> 
 			    <td>{{ a.name}}</td>
-			    <td>{{ a.reputation}}</td>
+			    <td><span stars>{{ a.reputation}}</span></td>
 			    <td>{{ a.restaurant_name }}</td>
 			    <td>{{ a.rating_time }}</td>
 			  </tr>
@@ -166,7 +168,7 @@ function showContainer() {
 	</div>
 
 	<div id="containerForQueryM" class="queryContainer">
-		<table>
+		<table datatable="ng">
 			<thead>
 			    <tr>
 				    <th>Rater Name</th>
@@ -179,7 +181,7 @@ function showContainer() {
 			<tbody>
 			  <tr ng-repeat="a in mData"> 
 			    <td>{{ a.name}}</td>
-			    <td>{{ a.reputation}}</td>
+			    <td><span stars>{{ a.reputation}}</span></td>
 			    <td>{{ a.comments }}</td>
 			    <td>{{ a.item_name }}</td>
 			    <td>{{ a.price }}</td>			    
@@ -189,7 +191,7 @@ function showContainer() {
 	</div>
 
 	<div id="containerForQueryN" class="queryContainer">
-		<table>
+		<table datatable="ng">
 			<thead>
 			    <tr>
 				    <th>Name</th>
@@ -206,7 +208,7 @@ function showContainer() {
 	</div>
 
 	<div id="containerForQueryO" class="queryContainer">
-		<table>
+		<table datatable="ng">
 			<thead>
 			    <tr>
 				    <th>Name</th>

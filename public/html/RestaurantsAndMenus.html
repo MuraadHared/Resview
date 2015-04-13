@@ -132,89 +132,108 @@ function showContainer() {
 	</select>
 <br>
 <br>
+<br>
+<br>
 	<div id="containerForQueryA" class="queryContainer">
-		<table>
-		    <tr>
-		    <th>Restaurant ID</th>
-		    <th>Restaurant Name</th>
-		    <th>Cuisine</th>
-			<th>Url</th>
-		  </tr>
-		  <tr ng-repeat="selectedRestaurant in selectR"> 
-		    <td>{{ selectedRestaurant.restaurantid}}</td>
-		    <td>{{ selectedRestaurant.name}}</td>
-		    <td>{{ selectedRestaurant.type }}</td>
-		    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
-		  </tr>
+		<table datatable="ng">
+			<thead>
+			  <tr>
+			    <th>Restaurant ID</th>
+			    <th>Restaurant Name</th>
+			    <th>Cuisine</th>
+				<th>Url</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="selectedRestaurant in selectR"> 
+			    <td>{{ selectedRestaurant.restaurantid}}</td>
+			    <td>{{ selectedRestaurant.name}}</td>
+			    <td>{{ selectedRestaurant.type }}</td>
+			    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
+			  </tr>
+		  </tbody>
 		</table>
 	</div>
 
 	<div id="containerForQueryB" class="queryContainer">
-		<table>
-		    <tr>
-		    <th>MenuItem Name</th>
-		    <th>Price</th>
-		  </tr>
-		  <tr ng-repeat="selectedRestaurant in bData"> 
-		    <td>{{ selectedRestaurant.name}}</td>
-		    <td>{{ selectedRestaurant.price}}</td>
-		  </tr>
+		<table datatable="ng">
+			<thead>	
+			  <tr>
+			    <th>MenuItem Name</th>
+			    <th>Price</th>
+			  </tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="selectedRestaurant in bData"> 
+		    		<td>{{ selectedRestaurant.name}}</td>
+		    		<td>{{ selectedRestaurant.price}}</td>
+		  		</tr>
+		  	</tbody>
 		</table>
 	</div>
 
 
 	<div id="containerForQueryC" class="queryContainer">
-		<table>
-		    <tr>
-		    <th>Restaurant Name</th>
-		    <th>Manager Name</th>
-		    <th>Location Address</th>
-		    <th>Open Date of Location</th>
-		  </tr>
-		  <tr ng-repeat="selectedRestaurant in cData"> 
-		    <td>{{ selectedRestaurant.name}}</td>
-		    <td>{{ selectedRestaurant.manager_name}}</td>
-		    <td>{{ selectedRestaurant.street_address}}</td>
-		    <td>{{ selectedRestaurant.open_date}}</td>
-
-		  </tr>
+		<table datatable="ng">
+			<thead>
+			    <tr>
+			    <th>Restaurant Name</th>
+			    <th>Manager Name</th>
+			    <th>Location Address</th>
+			    <th>Open Date of Location</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="selectedRestaurant in cData"> 
+			    <td>{{ selectedRestaurant.name}}</td>
+			    <td>{{ selectedRestaurant.manager_name}}</td>
+			    <td>{{ selectedRestaurant.street_address}}</td>
+			    <td>{{ selectedRestaurant.open_date}}</td>
+			  </tr>
+			</tbody>
 		</table>
 	</div>
 
 	<div id="containerForQueryD" class="queryContainer">
-		<table>
-		    <tr>
-		    <th>MenuItem Name</th>
-		    <th>Manager Name</th>
-		    <th>Opening Hour</th>
-		    <th>Closing Hour</th>
-		    <th>Url</th>
-		  </tr>
-		  <tr ng-repeat="selectedRestaurant in dData"> 
-		    <td>{{ selectedRestaurant.name}}</td>
-		    <td>{{ selectedRestaurant.manager_name}}</td>
-		    <td>{{ selectedRestaurant.hour_open}}</td>
-		    <td>{{ selectedRestaurant.hour_close}}</td>
-		    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
-
-		  </tr>
+		<table datatable="ng">
+			<thead>
+			    <tr>
+			    <th>MenuItem Name</th>
+			    <th>Manager Name</th>
+			    <th>Opening Hour</th>
+			    <th>Closing Hour</th>
+			    <th>Url</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="selectedRestaurant in dData"> 
+			    <td>{{ selectedRestaurant.name}}</td>
+			    <td>{{ selectedRestaurant.manager_name}}</td>
+			    <td>{{ selectedRestaurant.hour_open}}</td>
+			    <td>{{ selectedRestaurant.hour_close}}</td>
+			    <td><a href= {{selectedRestaurant.url}}>{{ selectedRestaurant.url}}</a></td>
+			  </tr>
+			</tbody>
 		</table>
 	</div>
 
 
 	<div id="containerForQueryE" class="queryContainer">
-		<table>
-		    <tr>
-		    <th>Cuisine</th>
-		    <th>MenuItem Category</th>
-		    <th>Average Price of MenuItems</th>
-		  </tr>
-		  <tr ng-repeat="selectedRestaurant in eData"> 
-		    <td>{{ selectedRestaurant.type}}</td>
-		    <td>{{ selectedRestaurant.category}}</td>
-		    <td>{{ selectedRestaurant.average_price}}</td>
-		  </tr>
+		<table datatable="ng">
+			<thead>
+			    <tr>
+				    <th>Cuisine</th>
+				    <th>MenuItem Category</th>
+				    <th>Average Price of MenuItems</th>
+			  	</tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="selectedRestaurant in eData"> 
+			    <td>{{ selectedRestaurant.type}}</td>
+			    <td>{{ selectedRestaurant.category}}</td>
+			    <td>{{ selectedRestaurant.average_price}}</td>
+			  </tr>
+			</tbody>
 		</table>
 	</div>
-
 </div>

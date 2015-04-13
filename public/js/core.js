@@ -1,5 +1,6 @@
 var restaurantProject = angular.module('restaurantProject', ['ngRoute', 'Authentication', 'ngCookies', 'datatables']);
-restaurantProject.config(['$routeProvider', function($routeProvider) {
+restaurantProject.config(['$routeProvider', '$compileProvider', function($routeProvider, $compileProvider) {
+    $compileProvider.debugInfoEnabled(false);
     $routeProvider  
         .when('/login', 
             {
@@ -37,6 +38,23 @@ restaurantProject.config(['$routeProvider', function($routeProvider) {
                 templateUrl: 'html/RatersAndTheirRatings.html'
             })                   
         .otherwise({redirectTo: '/login'});
+}]);
+
+restaurantProject.directive('stars',['$compile', '$timeout', function($compile, $timeout) {
+    return { 
+        restrict: 'A',
+        replace: true,       
+        link: function(scope, element, attrs, model) {                                                
+            var e = $compile(element.contents())(scope);
+            $timeout(function(){                                
+                var val = parseFloat(e.text());                    
+                var size = Math.max(0, (Math.min(5, val))) * 16;                           
+                var $span = $('<span />').width(size);                
+                e.html($span);                      
+                e.addClass("stars");                  
+            },0);           
+        }
+    }
 }]);
 
 restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$http','$location', '$route', function($scope, $rootScope, $http, $location, $route) {        
