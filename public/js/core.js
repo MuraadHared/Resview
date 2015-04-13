@@ -276,6 +276,32 @@ restaurantProject.controller('RestaurantController', ['$scope', '$rootScope', '$
             item.price = null;
             $route.reload();
         }
+
+        $scope.getLocations = function(restaurant) {            
+           $http.get('/getLocations' + restaurant.restaurantid).success(function(data) {                
+                $scope.locationData = data;
+            });
+        }
+
+        $scope.getRatingItems = function(item) {            
+           $http.get('/getRatingItems' + item.itemid).success(function(data) {                
+                $scope.ratingItemData = data;
+            });
+        }
+
+        $scope.insertRating = function(rater) {            
+             $http.get('/insertRating/' + rater.userid + '/' + rater.restaurantid + '/' + rater.comments + '/' + rater.price + '/' + rater.food + '/' + rater.mood + '/' + rater.staff ).success(function(data) {
+               $route.reload();  
+
+             });
+          }
+
+          $scope.insertRatingItem = function(rater) {            
+             $http.get('/insertRatingItem/' + rater.userid + '/' + rater.itemid + '/' + rater.rating + '/' + rater.rating_comment ).success(function(data) {
+                 $route.reload(); 
+             });
+          }
+
 }]);
 
 restaurantProject.run(['$rootScope', '$location', '$cookieStore', '$http', '$route',

@@ -127,6 +127,23 @@ app.get('/insertMenuItem/:restaurantID/:nameOfItem/:itemType/:category/:descript
     dbOperations.insertMenuItem(req,res);    
 });
 
+app.get('/insertRating/:UserID/:restaurantID/:comments/:price/:food/:mood/:staff', function(req,res){   
+    dbOperations.insertRating(req,res);    
+});
+
+app.get('/insertRatingItem/:UserID/:ItemID/:rating/:rating_comment', function(req,res){   
+    dbOperations.insertRatingItem(req,res);    
+});
+
+app.get('/getRatingItems/:ItemID', function(req,res){   
+    dbOperations.getRatingItems(req,res);    
+});
+
+app.get('/getLocations/:RestaurantID', function(req,res){   
+    dbOperations.getLocations(req,res);    
+});
+
+
 app.set('port', process.env.PORT || 3001);
 app.use(express.static(__dirname + '/public'));  
 app.listen(app.get('port'), function () {   

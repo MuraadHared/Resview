@@ -489,5 +489,92 @@ insertMenuItem : function(req, res){
             res.write(JSON.stringify(result.rows, null, "    ") + "\n"); // write the response
             res.end();  // send content of response to the client and signal the server that the response has been sent
         });
+    },
+
+    insertRating : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect();               
+           var date;
+           date = new Date();
+           date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + ' ' +
+            ('00' + date.getUTCHours()).slice(-2) + ':' +
+            ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+            ('00' + date.getUTCSeconds()).slice(-2); 
+
+        var query = client.query("INSERT INTO Rating VALUES ("+ req.params.UserID+ ", " + req.params.restaurantID + ",'" + date + "','" + req.params.comments + "', " + req.params.price + ", "+ req.params.food + " ,"+  req.params.mood + " ,"+  req.params.staff + ")");   
+
+        query.on("row", function (row, result) { 
+            result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
+        });        
+        // once query has obtained all rows, decide what to do with result variable
+        query.on("end", function (result) {                      
+            client.end(); // disconnect client
+            res.writeHead(200, {'Content-Type': 'application/json'}); // prepare result for view (response header)
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n"); // write the response
+            res.end();  // send content of response to the client and signal the server that the response has been sent
+        });
+    },
+
+    insertRatingItem : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect();               
+           var date;
+           date = new Date();
+           date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + ' ' +
+            ('00' + date.getUTCHours()).slice(-2) + ':' +
+            ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+            ('00' + date.getUTCSeconds()).slice(-2); 
+
+        var query = client.query("INSERT INTO RatingItem VALUES ("+ req.params.UserID+ ", " + req.params.ItemID + ",'" + date + "', " + req.params.rating + " , '" + req.params.rating_comment + "')");   
+        
+        query.on("row", function (row, result) { 
+            result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
+        });        
+        // once query has obtained all rows, decide what to do with result variable
+        query.on("end", function (result) {                      
+            client.end(); // disconnect client
+            res.writeHead(200, {'Content-Type': 'application/json'}); // prepare result for view (response header)
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n"); // write the response
+            res.end();  // send content of response to the client and signal the server that the response has been sent
+        });
+    },
+
+    getRatingItems : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect();                                                                 
+        var query = client.query("Select * From RatingItem Where ItemID=" + req.params.ItemID + ";");   
+        query.on("row", function (row, result) { 
+            result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
+        });        
+        // once query has obtained all rows, decide what to do with result variable
+        query.on("end", function (result) {                      
+            client.end(); // disconnect client
+            res.writeHead(200, {'Content-Type': 'application/json'}); // prepare result for view (response header)
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n"); // write the response
+            res.end();  // send content of response to the client and signal the server that the response has been sent
+        });
+    },
+
+    getLocations : function(req, res){        
+        var client = new pg.Client(connection);
+        client.connect();                                                                 
+        var query = client.query("Select * From Location Where RestaurantID =" + req.params.RestaurantID + ";");   
+        
+        query.on("row", function (row, result) { 
+            result.addRow(row);  //adds row to the result object (result object will have all the rows obtained from query after this)
+        });        
+        // once query has obtained all rows, decide what to do with result variable
+        query.on("end", function (result) {                      
+            client.end(); // disconnect client
+            res.writeHead(200, {'Content-Type': 'application/json'}); // prepare result for view (response header)
+            res.write(JSON.stringify(result.rows, null, "    ") + "\n"); // write the response
+            res.end();  // send content of response to the client and signal the server that the response has been sent
+        });
     }
+
+
 };
